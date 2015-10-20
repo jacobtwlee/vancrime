@@ -1,2 +1,2 @@
-# ignore my virtualenv files
-SERVER/server
+# ignore telemachus virtualenv files
+py3virtual/
