@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User, Group
+from vancrime.models import Crime, Location
 from rest_framework import viewsets
-from api.serializers import UserSerializer, GroupSerializer
+from api.serializers import UserSerializer, GroupSerializer, CrimeSerializer, LocationSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -15,3 +16,17 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+class CrimeViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows crimes to be viewed or edited.
+    """
+    queryset = Crime.objects.all()
+    serializer_class = CrimeSerializer
+
+class LocationViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows locations to be viewed or edited.
+    """
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
