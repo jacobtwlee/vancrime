@@ -26,6 +26,7 @@ router.register(r'locations', views.LocationViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^ajax/', include('api.urls')),
     url(r'^api/', include(router.urls)), # Wire up our API using automatic URL routing.
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')), # Additionally, we include login URLs for the browsable API.
 ]
