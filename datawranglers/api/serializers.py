@@ -15,12 +15,14 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'name')
 
 
-class CrimeSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Crime
-        fields = ('crime_type', 'year', 'month', 'location')
-
-class LocationSerializer(serializers.HyperlinkedModelSerializer):
+class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
         fields = ('address', 'latitude', 'longitude')
+
+
+class CrimeSerializer(serializers.ModelSerializer):
+    location = LocationSerializer(many=False, read_only=True)
+    class Meta:
+        model = Crime
+        fields = ('crime_type', 'year', 'month', 'location')
