@@ -77,13 +77,11 @@ class FetchDataView(APIView):
             if (not(self.isValidHeader([type_index, year_index, month_index, block_index]))):
                 raise Exception("unrecognized CSV header")
 
-            for row in response:
-                data = row.strip().split(",")
-
-                crime_type = data[type_index]
-                year = data[year_index]
-                month = data[month_index]
-                block = data[block_index]
+            for row in reader:
+                crime_type = row[type_index]
+                year = row[year_index]
+                month = row[month_index]
+                block = row[block_index]
 
                 try:
                     location = Location.objects.get(address=block)
