@@ -6,7 +6,17 @@ VanCrime is a web application for visualizing occurences of various types of cri
 
 ### Quick Start
 
-To start the server navigate to the project directory and run `python manage.py runserver`. The server can be accessed at `localhost:8000`
+1. Apply migrations
+    
+        python manage.py migrate
+
+2. Start the server (by default the server is accessible at `localhost:8000`)
+
+        python manage.py runserver
+
+3. Populate the application with remote data
+
+        curl -X POST -u admin:password http://localhost:8000/ajax/fetch-data
 
 ### Dependencies
 Python (3.2 or higher)
