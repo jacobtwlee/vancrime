@@ -6,6 +6,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from api.serializers import UserSerializer, GroupSerializer, CrimeSerializer, LocationSerializer
 
+import urllib.request
+import csv
+
 """
 REST Endpoints
 """
@@ -49,6 +52,50 @@ class FetchDataView(APIView):
     """
     permission_classes = [permissions.IsAdminUser]
 
-    # TODO: Complete fetch-data endpoint
     def post(self, request, format=None):
-        return Response({"success": True, "content": "Hello World!"})
+        try:
+            self.fetchAndStoreData()
+            return Response({"success": True})
+        except Exception as e:
+            return Response({"success": False, "message": e})
+
+    def fetchAndStoreData(self):
+        urls = [
+            "ftp://webftp.vancouver.ca/opendata/csv/crime_2015.csv",
+        ]
+
+        for url in urls:
+            response = urllib.request.urlopen(url).read().decode("utf-8").splitlines()
+            reader = csv.reader(response)
+            header = next(reader)
+
+            type_index = header.index("TYPE")
+            year_index = header.index("YEAR")
+            month_index = header.index("MONTH")
+            block_index = header.index("HUNDRED_BLOCK")
+
+            if (not(self.isValidHeader([type_index, year_index, month_index, block_index]))):
+                raise Exception("unrecognized CSV header")
+
+            for row in response:
+                data = row.strip().split(",")
+
+                crime_type = data[type_index]
+                year = data[year_index]
+                month = data[month_index]
+                block = data[block_index]
+
+                try:
+                    location = Location.objects.get(address=block)
+                except Location.DoesNotExist:
+                    location = Location(address=block)
+                    location.save()
+
+                crime = Crime(crime_type=crime_type, year=year, month=month, location=location)
+                crime.save()
+
+    def isValidHeader(self, indexes):
+        for index in indexes:
+            if index == -1:
+                return False
+        return True
