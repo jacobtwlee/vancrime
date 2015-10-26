@@ -12,3 +12,6 @@ class Crime(models.Model):
     year = models.IntegerField()
     month = models.IntegerField()
     location = models.ForeignKey(Location)
+
+class LoadedData(models.Model):
+    url = models.URLField(max_length=200, unique=True)

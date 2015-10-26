@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from vancrime.models import Crime, Location
+from vancrime.models import Crime, Location, LoadedData
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.views import APIView
@@ -65,6 +65,16 @@ class FetchDataView(APIView):
         ]
 
         for url in urls:
+            try:
+                LoadedData.objects.get(url=url)
+                isDataLoaded = True
+            except LoadedData.DoesNotExist:
+                isDataLoaded = False
+
+            # skip data that has already been stored
+            if (isDataLoaded):
+                continue
+
             response = urllib.request.urlopen(url).read().decode("utf-8").splitlines()
             reader = csv.reader(response)
             header = next(reader)
@@ -91,6 +101,8 @@ class FetchDataView(APIView):
 
                 crime = Crime(crime_type=crime_type, year=year, month=month, location=location)
                 crime.save()
+
+            LoadedData(url=url).save()
 
     def isValidHeader(self, indexes):
         for index in indexes:
