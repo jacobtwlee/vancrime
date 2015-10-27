@@ -25,6 +25,7 @@ router.register(r'crimes', views.CrimeViewSet)
 router.register(r'locations', views.LocationViewSet)
 
 urlpatterns = [
+    url(r'^vancrime/', include('vancrime.urls', namespace='vancrime')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^ajax/', include('api.urls')),
     url(r'^api/', include(router.urls)), # Wire up our API using automatic URL routing.
