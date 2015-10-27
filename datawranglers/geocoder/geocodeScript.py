@@ -99,6 +99,26 @@ class AsyncGeocoder:
             self.timesofar += self.interval
             threading.Timer(self.interval, self.geocode ).start()
 
+# def main():
+    
+
+# # CS310ServerKey1
+# # AIzaSyCQL9yusIzeXiz6LGtlvG-4WRj-bu0Uz7c
+# # Browser Key 1
+# # AIzaSyAgfdCCM2NdS6YxSk5LgCc-FxUsIeniQJU
+
+
+# from geopy.geocoders import GoogleV3
+# import csv
+
+# key = "AIzaSyCQL9yusIzeXiz6LGtlvG-4WRj-bu0Uz7c"
+
+# # load csv file
+# crimedat = open("/Users/geoff/django310project/datawranglers/data/crime_2015.csv")
+# reader = csv.reader( crimedat )
+# labels = next( reader )
+# labels.append('LATLONG')
+
 
 
 
