@@ -7,6 +7,9 @@ datawranglers/geocoder/sensitive.txt
 # ignore the database
 datawranglers/db.sqlite3
 
+# ignore server static files
+/datawranglers/static/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
