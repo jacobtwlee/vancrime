@@ -1,0 +1,85 @@
+import os, sys
+import threading
+
+# Google API keys
+
+# import threading
+class InfoLogger:
+    def __init__( self ):
+
+    def _print( msg ):
+        # TODO: make output log file
+        print( msg )
+        
+    def aboutTo( action ):
+        _print( "About to " + action )
+
+    def justDid( action )
+        _print( "Just finished " + action )
+
+class CSVWriter:
+    def __init__( self, fileName ):
+        self.fileName = fileName
+        self.file = 0
+            
+    def _initialize():
+        try:
+            self.file = open( os.getcwd() + filename + ".csv", 'w')
+        except OSError as err:
+            print("OS error: {0}".format(err))
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
+
+    def close():
+        self.file.close()
+
+class AsyncGeocoder:
+
+    def __init__( self, geocoder, dataReader, interval = 1, howlong = 250 ):
+        self.logger = InfoLogger()
+        self.interval = interval
+        self.dataReader = dataReader
+        self.end = howlong
+        self.timesofar = 0;
+        
+        # Do Geocoding
+#        self.logger.aboutTo( "setup output file" )
+#        self.logger.justDid( "setup output file" )
+        
+    def geocodeNAddresses( N ):
+        for _ in xrange(10):
+        
+    def geocode( ):
+        # get ten items to process
+        print( "So far approximately %d seconds have elapsed" % timesofar )
+        if ( self.timesofar >= self.end ):
+            print(" That's all! No more worker threads will be spawned ");
+            return
+        else:
+            geocodeNAddresses( 10, 
+            self.timesofar += self.interval
+            threading.Timer(interval, worker, ( data, )).start()
+
+# def main():
+    
+
+# # CS310ServerKey1
+# # AIzaSyCQL9yusIzeXiz6LGtlvG-4WRj-bu0Uz7c
+# # Browser Key 1
+# # AIzaSyAgfdCCM2NdS6YxSk5LgCc-FxUsIeniQJU
+
+
+# from geopy.geocoders import GoogleV3
+# import csv
+
+# key = "AIzaSyCQL9yusIzeXiz6LGtlvG-4WRj-bu0Uz7c"
+
+# # load csv file
+# crimedat = open("/Users/geoff/django310project/datawranglers/data/crime_2015.csv")
+# reader = csv.reader( crimedat )
+# labels = next( reader )
+# labels.append('LATLONG')
+
+
+
+

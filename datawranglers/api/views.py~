@@ -58,7 +58,7 @@ class GeocodeDataView( APIView ):
         except Exception as e:
             return Response({ "success": False, "message": e })
 
-    def geocodeData( self ):
+    def geocodeData():
         """
         STUB
         """
