@@ -4,6 +4,9 @@ py3virtual/
 # ignore the database
 datawranglers/db.sqlite3
 
+# ignore server static files
+/static/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
