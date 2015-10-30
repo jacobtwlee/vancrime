@@ -4,7 +4,7 @@
     <th>Type of Crime</th>
     <th>Number of Crimes</th>
     </tr> 
-    {% for key,value in all_crimes.items %}
+    {% for key,value in all_crimes %}
     	<tr>
     	<td> {{key}} </td>
     	<td> {{value}} </td>
