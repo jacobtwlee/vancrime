@@ -12,6 +12,11 @@ class Crime(models.Model):
     year = models.IntegerField()
     month = models.IntegerField()
     location = models.ForeignKey(Location)
+    
+    @staticmethod
+    def count_crimes_by_time(y,m):
+        return Crime.objects.filter(year=y,month=m).count()
+	
 
 class LoadedData(models.Model):
     url = models.URLField(max_length=200, unique=True)
