@@ -1,3 +1,4 @@
+from vancrime.models import Crime, Location, LoadedData
 import threading
 import os
 import sys
@@ -81,15 +82,12 @@ class AsyncGeocoder:
         self.dataWriter = dataWriter
         self.end = howlong
         self.timesofar = 0
-
         
     def geocodeNAddresses( self, N ):
         for _ in range(N):
-            # geocoding occurs here
-            # this code repeats N times at most every second
+            pass
         
     def geocode( self ):
-        # get ten items to process
         self.logger.logMsg( "So far approximately %d seconds have elapsed" % self.timesofar )
         if ( self.timesofar >= self.end ):
             self.logger.logMsg( "That's all! No more worker threads will be spawned " )
