@@ -16,6 +16,14 @@ class Crime(models.Model):
     @staticmethod
     def count_crimes_by_time(y,m):
         return Crime.objects.filter(year=y,month=m).count()
+
+    @staticmethod 
+    def count_crimes_by_type(t):
+        types = Crime.objects.order_by().values('crime_type').distinct()
+        print (types)
+
+    @staticmethod
+    def count_crimes_by_time_type(y,m):
 	
 
 class LoadedData(models.Model):
