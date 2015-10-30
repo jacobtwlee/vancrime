@@ -17,13 +17,23 @@ class Crime(models.Model):
     def count_crimes_by_time(y,m):
         return Crime.objects.filter(year=y,month=m).count()
 
-    @staticmethod 
-    def count_crimes_by_type(t):
-        types = Crime.objects.order_by().values('crime_type').distinct()
-        print (types)
+    def sort_by_type(obj):
+        types = obj.order_by().values('crime_type').distinct()
+        d = dict()
+        for t in types:
+            num = obj.filter(crime_type=t['crime_type']).count()
+            d[t['crime_type']] = num
+        return d
 
     @staticmethod
     def count_crimes_by_time_type(y,m):
+        crimes = Crime.objects.filter(year=y,month=m)
+        return Crime.sort_by_type(crimes)
+
+    @staticmethod
+    def count_all_crimes_by_type():
+        obj = Crime.objects.all()
+        return Crime.sort_by_type(obj)
 	
 
 class LoadedData(models.Model):
