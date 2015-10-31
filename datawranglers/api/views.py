@@ -86,7 +86,7 @@ class GeocodeDataView( APIView ):
             # Save to database
             addr.latitude = codedAddr.latitude
             addr.longitude = codedAddr.longitude
-            #addr.save()
+            addr.save()
 
 class FetchDataView(APIView):
     """
