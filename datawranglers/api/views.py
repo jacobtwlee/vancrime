@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User, Group
-from vancrime.models import Crime, Location, LoadedData
+from vancrime.models import Crime, Location, LoadedData         
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from api.serializers import UserSerializer, GroupSerializer, CrimeSerializer, LocationSerializer
+from geopy.geocoders import GoogleV3
 
 import urllib.request
 import csv
@@ -54,15 +55,38 @@ class GeocodeDataView( APIView ):
     def post( self, request, format=None ):
         try:
             self.geocodeData()
-            return Response({ "success": True })
+            return Response({ "geocode success": True })
         except Exception as e:
-            return Response({ "success": False, "message": e })
-
+            return Response({ "geocode success": False, "message": e })
+    
     def geocodeData( self ):
         """
-        STUB
+        
         """
-        pass
+
+        # Set parameters for geocoding with Google 
+        GOOGLE_API_KEY = "AIzaSyCQL9yusIzeXiz6LGtlvG-4WRj-bu0Uz7c"
+        N = 10
+        
+        geocoder = GoogleV3( GOOGLE_API_KEY )
+        
+        # TODO: try/except block
+        locIter = Location.objects.all().filter(latitude=None,longitude=None).iterator()
+
+        ## Rate limited to N requests per second
+        for _ in range(N):
+            addr = next( locIter )
+
+            # TODO validate address
+            cleanAddr = addr.__str__().replace("XX","00").replace("/", "and") + ", VANCOUVER B.C., CANADA"
+
+            # Do geocoding
+            codedAddr = geocoder.geocode( cleanAddr )
+
+            # Save to database
+            addr.latitude = codedAddr.latitude
+            addr.longitude = codedAddr.longitude
+            #addr.save()
 
 class FetchDataView(APIView):
     """
