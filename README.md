@@ -37,3 +37,7 @@ Django (1.8.5)
 Django Rest Framework (3.2.4)
 
     pip install djangorestframework
+
+Geopy
+    
+    pip install geopy
