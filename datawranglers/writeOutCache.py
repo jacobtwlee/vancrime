@@ -3,7 +3,7 @@ import os
 
 from vancrime.models import Crime, Location, LoadedData
 
-fileName = "cachedLocations.csv"
+fileName = "cache" + os.sep + "cachedLocations.csv"
 locIter = Location.objects.all().exclude( latitude=None,longitude=None).iterator()
 
 # create cache csv file
