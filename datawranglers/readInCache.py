@@ -1,6 +1,5 @@
 # NOTE: this file cannot be run as a standalone script until the following shell command has been run:
 # export DJANGO_SETTINGS_MODULE=datawranglers.settings
-
 import csv
 import os
 
