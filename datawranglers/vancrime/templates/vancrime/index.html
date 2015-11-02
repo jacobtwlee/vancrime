@@ -18,6 +18,7 @@
   </head>
   <body>
     <div id="map"></div>
+    <script type="text/javascript" src="{% static 'vancrime/marker.js' %}"></script>
     <script type="text/javascript" src="{% static 'vancrime/map.js' %}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNhncoP-tfsSs2qbbX_ne0GVTImbrLzf0&"></script>
     <script>
@@ -26,23 +27,11 @@
     {% for crime in crime_list %}
         <script type="text/javascript">
           // currently hard-coded latlng for testing/demo purposes, it should look like:
-          // var pos = new google.maps.LatLng(crime.location.latitude, crime.location.longitude);
-          var pos = new google.maps.LatLng(49.261465, -123.248922);
+          var pos = new google.maps.LatLng('{{ crime.location.latitude }}', '{{ crime.location.longitude }}');
+          // var pos = new google.maps.LatLng(49.261465, -123.248922);
           var type = "{{ crime.crime_type }}";
           addMarker(pos, type, map);
         </script>
     {% endfor %}
-    
-    <!-- Following block is for demo purposes only while crimes don't contain lat/lon -->
-    <script type="text/javascript">
-      var pos = new google.maps.LatLng(49.2820079, -123.1340552);
-      var type = "Theft Of Auto Under $5000";
-      addBlueMarker(pos, type, map);
-
-      var pos = new google.maps.LatLng(49.264324, -123.116691);
-      var type = "Mischief Under $5000";
-      addGreenMarker(pos, type, map);
-    </script>
-
   </body>
 </html>
