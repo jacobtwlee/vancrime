@@ -23,14 +23,16 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNhncoP-tfsSs2qbbX_ne0GVTImbrLzf0&"></script>
     <script>
       var map = initMap();
+      var infowindow = new google.maps.InfoWindow({
+          content: ''
+      });
     </script>
     {% for crime in crime_list %}
         <script type="text/javascript">
-          // currently hard-coded latlng for testing/demo purposes, it should look like:
           var pos = new google.maps.LatLng('{{ crime.location.latitude }}', '{{ crime.location.longitude }}');
-          // var pos = new google.maps.LatLng(49.261465, -123.248922);
           var type = "{{ crime.crime_type }}";
-          addMarker(pos, type, map);
+          var address = "49XX CARTIER ST";
+          addMarker(type, address, pos, map);
         </script>
     {% endfor %}
   </body>

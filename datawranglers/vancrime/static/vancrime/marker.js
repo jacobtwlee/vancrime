@@ -1,12 +1,17 @@
-function addMarker(latlng, type, map) {
+function addMarker(type, address, latlng, map) {
   // TODO: this url should somehow use a globally defined STATIC_URL (see datawranglers/settings.py)
   // change this URL to use the desired icon
-  marker = new google.maps.Marker({
+  var marker = new google.maps.Marker({
       position: latlng,
-      title: 'Crime type: ' + type,
+      title: type,
       icon: getCrimeIconURL(type)
     });
+
   marker.setMap(map);
+  marker.addListener('click', function() {
+  	infowindow.setContent('<p>Crime: ' + type + '</p><p>Address: ' + address + '</p>');
+    infowindow.open(map, marker);
+  });
 }
 
 function getCrimeIconURL(crimeType) {
