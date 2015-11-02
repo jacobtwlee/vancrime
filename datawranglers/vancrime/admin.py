@@ -6,7 +6,7 @@ class CrimeAdmin( admin.ModelAdmin ):
 
 class LocationAdmin( admin.ModelAdmin ):
     list_display = ('address','latitude','longitude')
- 
+
 admin.site.register( Crime, CrimeAdmin )
 admin.site.register( Location, LocationAdmin )
 admin.site.register( LoadedData )
