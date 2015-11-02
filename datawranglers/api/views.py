@@ -81,6 +81,7 @@ class GeocodeDataView( APIView ):
             cleanAddr = addr.__str__().replace("XX","00").replace("/", "and") + ", VANCOUVER B.C., CANADA"
 
             # Do geocoding
+            # TODO try/except for timeout
             codedAddr = geocoder.geocode( cleanAddr )
 
             # Save to database
