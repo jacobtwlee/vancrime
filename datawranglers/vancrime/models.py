@@ -16,7 +16,7 @@ class Crime(models.Model):
     @staticmethod
     def count_crimes_by_time(y,m):
         return Crime.objects.filter(year=y,month=m).count()
-
+    
     def sort_by_type(obj):
         types = obj.order_by().values('crime_type').distinct()
         d = dict()
@@ -34,7 +34,6 @@ class Crime(models.Model):
     def count_all_crimes_by_type():
         obj = Crime.objects.all()
         return Crime.sort_by_type(obj)
-	
 
 class LoadedData(models.Model):
     url = models.URLField(max_length=200, unique=True)
