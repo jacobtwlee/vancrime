@@ -19,7 +19,16 @@
   <body>
     <div id="map"></div>
     <script type="text/javascript" src="{% static 'vancrime/map.js' %}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNhncoP-tfsSs2qbbX_ne0GVTImbrLzf0&callback=initMap"
-        async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNhncoP-tfsSs2qbbX_ne0GVTImbrLzf0&"></script>
+    <script>
+      var map = initMap();
+    </script>
+    {% for crime in crime_list %}
+        <script type="text/javascript">
+          var pos = new google.maps.LatLng(crime.location.latitude, crime.location.longitude);
+          var type = "{{ crime.crime_type }}";
+          addMarker(pos, type, map);
+        </script>
+    {% endfor %}
   </body>
 </html>
