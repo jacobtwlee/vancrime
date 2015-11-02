@@ -19,3 +19,25 @@ function addMarker(latlng, type, map) {
     });
   marker.setMap(map);
 }
+
+//temporary function for demo purposes
+function addBlueMarker(latlng, type, map) {
+  var image = '/static/vancrime/assets/gmaps-icons/blue-dot.png'
+  marker = new google.maps.Marker({
+      position: latlng,
+      title: 'Crime type: ' + type,
+      icon: image
+    });
+  marker.setMap(map);
+}
+
+//temporary function for demo purposes
+function addGreenMarker(latlng, type, map) {
+  var image = '/static/vancrime/assets/gmaps-icons/green-dot.png'
+  marker = new google.maps.Marker({
+      position: latlng,
+      title: 'Crime type: ' + type,
+      icon: image
+    });
+  marker.setMap(map);
+}
