@@ -1,4 +1,8 @@
+{% if month and year %}
+<h1> Summary of Crimes in Vancouver for {{month}} {{year}} </h1>
+{% else %}
 <h1> Summary of Crimes in Vancouver </h1>
+{% endif %} 
 <table border="1">
     <tr>
     <th>Type of Crime</th>
@@ -10,4 +14,10 @@
     	<td> {{value}} </td>
     	</tr>
     {% endfor %}
+    {% if total %}
+	<tr> 
+	<td> Total </td>
+	<td> {{total}} </td>
+	</tr>
+    {% endif %}
 </table>
