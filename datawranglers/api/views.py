@@ -9,6 +9,7 @@ from geopy.geocoders import GoogleV3
 
 import urllib.request
 import csv
+import time
 
 """
 REST Endpoints
@@ -31,7 +32,7 @@ class GroupViewSet(viewsets.ModelViewSet):
 class CrimeViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows crimes to be viewed or edited.
-    """
+    """  
     queryset = Crime.objects.all()
     serializer_class = CrimeSerializer
 
@@ -61,12 +62,13 @@ class GeocodeDataView( APIView ):
     
     def geocodeData( self ):
         """
-        
+        POST endpoint to geocode locations stored in database
         """
-
         # Set parameters for geocoding with Google 
         GOOGLE_API_KEY = "AIzaSyCQL9yusIzeXiz6LGtlvG-4WRj-bu0Uz7c"
         N = 10
+        # set to 250 to reach daily limit
+        TOTAL = 10
         
         geocoder = GoogleV3( GOOGLE_API_KEY )
         
@@ -74,21 +76,25 @@ class GeocodeDataView( APIView ):
         locIter = Location.objects.all().filter(latitude=None,longitude=None).iterator()
 
         ## Rate limited to N requests per second
+ #       for _ in range(TOTAL):
+            # Do 10 geocode requests
         for _ in range(N):
             addr = next( locIter )
 
-            # TODO validate address
+                # TODO validate address
             cleanAddr = addr.__str__().replace("XX","00").replace("/", "and") + ", VANCOUVER B.C., CANADA"
-
-            # Do geocoding
-            # TODO try/except for timeout
+                
+                # Do geocoding
+                # TODO try/except for timeout
             codedAddr = geocoder.geocode( cleanAddr )
-
-            # Save to database
+                
+                # Save to database
             addr.latitude = codedAddr.latitude
             addr.longitude = codedAddr.longitude
             addr.save()
-
+            # ensure we aren't requesting too quickly
+        #timer.sleep(1)
+            
 class FetchDataView(APIView):
     """
     POST endpoint to fetch and store crime data from Data Vancouver
