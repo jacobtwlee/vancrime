@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import Http404
 from .models import Crime
-from .forms import CrimeForm
+# from .forms import CrimeForm
 from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components
 from bokeh.resources import CDN
@@ -45,6 +45,6 @@ def graph(request,month, year):
         graph.line(list(dat.index), dat["All Crimes"]) 
         graph.xaxis.major_label_orientation = - pi/2
         script, div = components(graph, CDN)
+        return render(request, 'vancrime/crime_bar_graph.html', {'the_script': script, 'the_div': div})
      except IndexError:
         raise Http404("Invalid month entered.")
-    return render(request, 'vancrime/crime_bar_graph.html', {'the_script': script, 'the_div': div})
