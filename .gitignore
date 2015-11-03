@@ -1,9 +1,6 @@
 # ignore telemachus virtualenv files
 py3virtual/
 
-# ignore sensitive information like API key
-datawranglers/geocoder/sensitive.txt
-
 # ignore the database
 datawranglers/db.sqlite3
 
