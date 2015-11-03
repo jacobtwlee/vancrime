@@ -41,3 +41,11 @@ Django Rest Framework (3.2.4)
 Geopy
     
     pip install geopy
+
+Pandas (0.17.1)
+ 
+    pip install pandas
+
+Bokeh (0.10.0)
+
+    pip install bokeh
