@@ -6,6 +6,11 @@ import calendar
 
 # Create your views here.
 
+def index(request):
+    crime_list = Crime.objects.all()[:5]
+    context = {'crime_list': crime_list}
+    return render(request, 'vancrime/index.html', context)
+
 def summary_index(request):
     all_crimes = Crime.count_all_crimes_by_type()
     total = Crime.objects.count()
