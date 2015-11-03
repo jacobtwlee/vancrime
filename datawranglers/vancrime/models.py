@@ -1,4 +1,6 @@
 from django.db import models
+import pandas
+import calendar
 
 class Location(models.Model):
     address = models.CharField(max_length=100, unique=True)
@@ -35,5 +37,24 @@ class Crime(models.Model):
         obj = Crime.objects.all()
         return Crime.sort_by_type(obj)
 
+    @staticmethod
+    def data_summary(year,month,num_months):
+       all_data = []
+       months = []
+       while num_months > 0:
+             crime_summary = Crime.count_crimes_by_time_type(year,month)
+             month_name = calendar.month_name[month]
+             all_data.append(crime_summary)
+             months.append(month_name + " " + str(year))
+             if month == 12:
+                year += 1
+                month = 1
+             else:
+                month += 1
+             num_months -= 1
+       summary = pandas.DataFrame(all_data, index = months)
+       summary['All Crimes'] = summary.sum(axis=1)
+       return summary
+  
 class LoadedData(models.Model):
     url = models.URLField(max_length=200, unique=True)
