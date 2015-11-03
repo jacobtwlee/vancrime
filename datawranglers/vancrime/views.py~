@@ -5,11 +5,6 @@ import calendar
 
 # Create your views here.
 
-def index(request):
-    crime_list = Crime.objects.all()[:5]
-    context = {'crime_list': crime_list}
-    return render(request, 'vancrime/index.html', context)
-
 def summary_index(request):
     all_crimes = Crime.count_all_crimes_by_type()
     total = Crime.objects.count()
@@ -27,3 +22,21 @@ def summary_date(request, month, year):
     except IndexError:
        raise Http404("Invalid month entered.")
     return render(request, 'vancrime/summary_table.html', context)
+
+def graph(request, month, year, num_months):
+    month = int(month)
+    year = int(year)
+    try:
+       ## Get the data
+       all_data = []
+       months = []
+       while num_months > 0:
+             crime_summary = Crime.count_crimes_by_time(year,month)
+             month = calendar.month_name[month]
+             all_data.append(crime_summary)
+             months.append(month += str(year))
+             if month == 12:
+                year += 1
+                month = 0
+      
+       ## Render the data 
