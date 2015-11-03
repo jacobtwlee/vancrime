@@ -1,58 +1,58 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Vancrime</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
-      html, body {
+    html, body {
         height: 100%;
         margin: 0;
         padding: 0;
-      }
-      #map {
+    }
+    #map {
         height: 100%;
-      }
+    }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div id="map"></div>
     <script type="text/javascript" src="{% static 'vancrime/marker.js' %}"></script>
     <script type="text/javascript" src="{% static 'vancrime/map.js' %}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNhncoP-tfsSs2qbbX_ne0GVTImbrLzf0&"></script>
     <script>
-      var map = initMap();
-      var infowindow = new google.maps.InfoWindow({
-          content: ''
-      });
+        var map = initMap();
+        var infowindow = new google.maps.InfoWindow({
+            content: ''
+        });
     </script>
     {% for crime in crime_list %}
-        <script type="text/javascript">
-          var pos = new google.maps.LatLng('{{ crime.location.latitude }}', '{{ crime.location.longitude }}');
-          var type = "{{ crime.crime_type }}";
-          var address = "49XX CARTIER ST";
-          addMarker(type, address, pos, map);
-        </script>
+    <script type="text/javascript">
+        var pos = new google.maps.LatLng('{{ crime.location.latitude }}', '{{ crime.location.longitude }}');
+        var type = "{{ crime.crime_type }}";
+        var address = "49XX CARTIER ST";
+        addMarker(type, address, pos, map);
+    </script>
     {% endfor %}
-
+    
     <script type="text/javascript">
-      var pos = new google.maps.LatLng(49.227727, -123.090512);
-      var type = "Mischief Under $5000";
-      var address = "6270 Fraser St, Vancouver, BC";
-      addMarker(type, address, pos, map);
+        var pos = new google.maps.LatLng(49.227727, -123.090512);
+        var type = "Mischief Under $5000";
+        var address = "6270 Fraser St, Vancouver, BC";
+        addMarker(type, address, pos, map);
     </script>
     <script type="text/javascript">
-      var pos = new google.maps.LatLng(49.290166, -123.133822);
-      var type = "Theft Of Auto Under $5000";
-      var address = "1690 Robson St, Vancouver, BC";
-      addMarker(type, address, pos, map);
+        var pos = new google.maps.LatLng(49.290166, -123.133822);
+        var type = "Theft Of Auto Under $5000";
+        var address = "1690 Robson St, Vancouver, BC";
+        addMarker(type, address, pos, map);
     </script>
     <script type="text/javascript">
-      var pos = new google.maps.LatLng(49.275598, -123.201553);
-      var type = "Commercial Break and Enter";
-      var address = "1300 Discovery St, Vancouver, BC";
-      addMarker(type, address, pos, map);
+        var pos = new google.maps.LatLng(49.275598, -123.201553);
+        var type = "Commercial Break and Enter";
+        var address = "1300 Discovery St, Vancouver, BC";
+        addMarker(type, address, pos, map);
     </script>
-  </body>
+</body>
 </html>
