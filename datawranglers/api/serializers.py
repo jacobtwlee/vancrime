@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from vancrime.models import Crime, Location
+from vancrime.models import Crime, Location, LoadedData
 from rest_framework import serializers
 
 
@@ -26,3 +26,8 @@ class CrimeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Crime
         fields = ('crime_type', 'year', 'month', 'location')
+        
+class LoadedDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LoadedData
+        fields = ['url']

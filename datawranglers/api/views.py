@@ -1,10 +1,10 @@
 from django.contrib.auth.models import User, Group
-from vancrime.models import Crime, Location, LoadedData         
-from rest_framework import viewsets    
+from vancrime.models import Crime, Location, LoadedData
+from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from api.serializers import UserSerializer, GroupSerializer, CrimeSerializer, LocationSerializer
+from api.serializers import UserSerializer, GroupSerializer, CrimeSerializer, LocationSerializer, LoadedDataSerializer
 from geopy.geocoders import GoogleV3
 
 import geopy
@@ -33,17 +33,24 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 class CrimeViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint that allows crimes to be viewed or edited.
-    """  
+    API endpoint that allows crimes to be viewed.
+    """
     queryset = Crime.objects.all()
     serializer_class = CrimeSerializer
 
 class LocationViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint that allows locations to be viewed or edited.
+    API endpoint that allows locations to be viewed.
     """
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
+    
+class LoadedDataViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that allows urls for loaded to be viewed.
+    """
+    queryset = LoadedData.objects.all()
+    serializer_class = LoadedDataSerializer
 
 """
 AJAX Endpoints
@@ -111,6 +118,31 @@ class FetchDataView(APIView):
     url: /ajax/fetch-data
     """
     permission_classes = [permissions.IsAdminUser]
+    
+    REMOTE_DATA_URLS = {
+        2015: "ftp://webftp.vancouver.ca/opendata/csv/crime_2015.csv",
+        2014: "ftp://webftp.vancouver.ca/opendata/csv/crime_2014.csv",
+        2013: "ftp://webftp.vancouver.ca/opendata/csv/crime_2013.csv",
+        2012: "ftp://webftp.vancouver.ca/opendata/csv/crime_2012.csv",
+        2011: "ftp://webftp.vancouver.ca/opendata/csv/crime_2011.csv",
+        2010: "ftp://webftp.vancouver.ca/opendata/csv/crime_2010.csv",
+        2009: "ftp://webftp.vancouver.ca/opendata/csv/crime_2009.csv",
+        2008: "ftp://webftp.vancouver.ca/opendata/csv/crime_2008.csv",
+        2007: "ftp://webftp.vancouver.ca/opendata/csv/crime_2007.csv",
+        2006: "ftp://webftp.vancouver.ca/opendata/csv/crime_2006.csv",
+        2005: "ftp://webftp.vancouver.ca/opendata/csv/crime_2005.csv",
+        2004: "ftp://webftp.vancouver.ca/opendata/csv/crime_2004.csv",
+        2003: "ftp://webftp.vancouver.ca/opendata/csv/crime_2003.csv",
+    }
+    
+    def delete(self, request, format=None):
+        try:
+            years = request.data["years"]
+            deletedData = self.deleteStoredData(years)
+            return Response({"success": True, "deletedData": deletedData})
+        except Exception as e:
+            # TODO: update error handling to return a meaningful message
+            return Response({"success": False})
 
     def post(self, request, format=None):
         try:
@@ -122,26 +154,10 @@ class FetchDataView(APIView):
             return Response({"success": False})
 
     def fetchAndStoreData(self, years):
-        remoteDataUrls = {
-            2015: "ftp://webftp.vancouver.ca/opendata/csv/crime_2015.csv",
-            2014: "ftp://webftp.vancouver.ca/opendata/csv/crime_2014.csv",
-            2013: "ftp://webftp.vancouver.ca/opendata/csv/crime_2013.csv",
-            2012: "ftp://webftp.vancouver.ca/opendata/csv/crime_2012.csv",
-            2011: "ftp://webftp.vancouver.ca/opendata/csv/crime_2011.csv",
-            2010: "ftp://webftp.vancouver.ca/opendata/csv/crime_2010.csv",
-            2009: "ftp://webftp.vancouver.ca/opendata/csv/crime_2009.csv",
-            2008: "ftp://webftp.vancouver.ca/opendata/csv/crime_2008.csv",
-            2007: "ftp://webftp.vancouver.ca/opendata/csv/crime_2007.csv",
-            2006: "ftp://webftp.vancouver.ca/opendata/csv/crime_2006.csv",
-            2005: "ftp://webftp.vancouver.ca/opendata/csv/crime_2005.csv",
-            2004: "ftp://webftp.vancouver.ca/opendata/csv/crime_2004.csv",
-            2003: "ftp://webftp.vancouver.ca/opendata/csv/crime_2003.csv",
-        }
-
         filteredUrls = []
-        for year in remoteDataUrls.keys():
+        for year in self.REMOTE_DATA_URLS.keys():
             if (year in years):
-                filteredUrls.append(remoteDataUrls[year])
+                filteredUrls.append(self.REMOTE_DATA_URLS[year])
 
         newData = []
 
@@ -186,6 +202,18 @@ class FetchDataView(APIView):
             newData.append(url)
             LoadedData(url=url).save()
         return newData
+        
+    def deleteStoredData(self, years):
+        deletedData = []
+        for year in years:
+            url = self.REMOTE_DATA_URLS[year]
+            crimes = Crime.objects.filter(year=year)
+            data = LoadedData.objects.filter(url=url)
+            if (len(crimes) > 0 and len(data) > 0):
+                crimes.delete()
+                data.delete()
+                deletedData.append(url)
+        return deletedData
 
     def isValidHeader(self, indexes):
         for index in indexes:
