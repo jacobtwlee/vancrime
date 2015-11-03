@@ -1,0 +1,6 @@
+# Production dependencies
+# Install with: `pip install -r requirements.txt`
+
+-r ./requirements-dev.txt
+
+gunicorn == 19.3.0
