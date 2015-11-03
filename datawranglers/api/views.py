@@ -75,7 +75,7 @@ class GeocodeDataView( APIView ):
         """
         # Set parameters for geocoding with Google 
         GOOGLE_API_KEY = "AIzaSyCQL9yusIzeXiz6LGtlvG-4WRj-bu0Uz7c"
-        RATE = 1
+        RATE = 5
         N = 10
         # set to 250 to reach daily limit
         TOTAL = 250
