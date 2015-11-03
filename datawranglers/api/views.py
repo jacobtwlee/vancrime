@@ -209,10 +209,10 @@ class FetchDataView(APIView):
             url = self.REMOTE_DATA_URLS[year]
             crimes = Crime.objects.filter(year=year)
             data = LoadedData.objects.filter(url=url)
-            if (len(crimes) > 0 and len(data) > 0):
-                crimes.delete()
-                data.delete()
+            if (len(crimes) > 0 or len(data) > 0):
                 deletedData.append(url)
+            crimes.delete()
+            data.delete()
         return deletedData
 
     def isValidHeader(self, indexes):
