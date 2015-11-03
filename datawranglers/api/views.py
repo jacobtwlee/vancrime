@@ -54,17 +54,38 @@ class FetchDataView(APIView):
 
     def post(self, request, format=None):
         try:
-            self.fetchAndStoreData()
-            return Response({"success": True})
+            years = request.data["years"]
+            newData = self.fetchAndStoreData(years)
+            return Response({"success": True, "newData": newData})
         except Exception as e:
-            return Response({"success": False, "message": e})
+            # TODO: update error handling to return a meaningful message
+            return Response({"success": False})
 
-    def fetchAndStoreData(self):
-        urls = [
-            "ftp://webftp.vancouver.ca/opendata/csv/crime_2015.csv",
-        ]
+    def fetchAndStoreData(self, years):
+        remoteDataUrls = {
+            2015: "ftp://webftp.vancouver.ca/opendata/csv/crime_2015.csv",
+            2014: "ftp://webftp.vancouver.ca/opendata/csv/crime_2014.csv",
+            2013: "ftp://webftp.vancouver.ca/opendata/csv/crime_2013.csv",
+            2012: "ftp://webftp.vancouver.ca/opendata/csv/crime_2012.csv",
+            2011: "ftp://webftp.vancouver.ca/opendata/csv/crime_2011.csv",
+            2010: "ftp://webftp.vancouver.ca/opendata/csv/crime_2010.csv",
+            2009: "ftp://webftp.vancouver.ca/opendata/csv/crime_2009.csv",
+            2008: "ftp://webftp.vancouver.ca/opendata/csv/crime_2008.csv",
+            2007: "ftp://webftp.vancouver.ca/opendata/csv/crime_2007.csv",
+            2006: "ftp://webftp.vancouver.ca/opendata/csv/crime_2006.csv",
+            2005: "ftp://webftp.vancouver.ca/opendata/csv/crime_2005.csv",
+            2004: "ftp://webftp.vancouver.ca/opendata/csv/crime_2004.csv",
+            2003: "ftp://webftp.vancouver.ca/opendata/csv/crime_2003.csv",
+        }
 
-        for url in urls:
+        filteredUrls = []
+        for year in remoteDataUrls.keys():
+            if (year in years):
+                filteredUrls.append(remoteDataUrls[year])
+
+        newData = []
+
+        for url in filteredUrls:
             try:
                 LoadedData.objects.get(url=url)
                 isDataLoaded = True
@@ -101,8 +122,10 @@ class FetchDataView(APIView):
 
                 crime = Crime(crime_type=crime_type, year=year, month=month, location=location)
                 crime.save()
-
+            
+            newData.append(url)
             LoadedData(url=url).save()
+        return newData
 
     def isValidHeader(self, indexes):
         for index in indexes:
