@@ -55,6 +55,6 @@ class Crime(models.Model):
        summary = pandas.DataFrame(all_data, index = months)
        summary['All Crimes'] = summary.sum(axis=1)
        return summary
- 
+  
 class LoadedData(models.Model):
     url = models.URLField(max_length=200, unique=True)
