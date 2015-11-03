@@ -26,6 +26,7 @@ router.register(r'locations', views.LocationViewSet)
 router.register(r'loaded-data', views.LoadedDataViewSet)
 
 urlpatterns = [
+    url(r'^$', include('vancrime.urls', namespace='index')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^ajax/', include('api.urls')),
     url(r'^api/', include(router.urls)), # Wire up our API using automatic URL routing.
