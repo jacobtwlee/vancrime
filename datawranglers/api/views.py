@@ -1,13 +1,17 @@
 from django.contrib.auth.models import User, Group
-from vancrime.models import Crime, Location, LoadedData
-from rest_framework import viewsets
+from vancrime.models import Crime, Location, LoadedData         
+from rest_framework import viewsets    
 from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from api.serializers import UserSerializer, GroupSerializer, CrimeSerializer, LocationSerializer
+from geopy.geocoders import GoogleV3
 
+import geopy
 import urllib.request
 import csv
+import time
+import sys
 
 """
 REST Endpoints
@@ -30,7 +34,7 @@ class GroupViewSet(viewsets.ModelViewSet):
 class CrimeViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows crimes to be viewed or edited.
-    """
+    """  
     queryset = Crime.objects.all()
     serializer_class = CrimeSerializer
 
@@ -44,7 +48,63 @@ class LocationViewSet(viewsets.ReadOnlyModelViewSet):
 """
 AJAX Endpoints
 """
+class GeocodeDataView( APIView ):
+    """
+    POST endpoint to geocode locations in database
+    url: /ajax/geocode-data
+    """
+    permission_classes = [ permissions.IsAdminUser ]
 
+    def post( self, request, format=None ):
+        try:
+            self.geocodeData()
+            return Response({ "geocode success": True })
+        except Exception as e:
+            return Response({ "geocode success": False, "unknown error": str( e ) })
+    
+    def geocodeData( self ):
+        """
+        POST endpoint to geocode locations stored in database
+        """
+        # Set parameters for geocoding with Google 
+        GOOGLE_API_KEY = "AIzaSyCQL9yusIzeXiz6LGtlvG-4WRj-bu0Uz7c"
+        RATE = 1
+        N = 10
+        # set to 250 to reach daily limit
+        TOTAL = 250
+        
+        geocoder = GoogleV3( GOOGLE_API_KEY )
+        locIter = Location.objects.all().filter(latitude=None,longitude=None).iterator()
+        
+        for _ in range( TOTAL ):
+            # Do at most N geocode requests per second
+            print( "Processing locations in database..." )
+            for _ in range( N ):
+                try:
+                    addr = next( locIter )
+                    cleanAddr = addr.__str__().replace( "XX","00" ).replace( "/", "and" ) + ", VANCOUVER B.C., CANADA"
+                    # Do geocoding
+                    codedAddr = geocoder.geocode( cleanAddr )
+
+                    # Save to database
+                    addr.latitude = codedAddr.latitude
+                    addr.longitude = codedAddr.longitude
+                    addr.save()
+
+                    # print output for user
+                    print( "%s: (%f, %f)" % ( addr.__str__(), addr.latitude, addr.longitude ) )
+                except StopIteration:
+                    print( "All geolocations in database are geocoded" )
+                    sys.stdout.flush()
+                    return
+                except geopy.exc.GeopyError as e:
+                    print("The geocoding service raised an exception: "+str( e ))
+                    return
+                except TypeError:
+                    print("An unexpected python error occurred: "+str( e ))
+            # wait RATE seconds before repeating
+            time.sleep(RATE)
+            
 class FetchDataView(APIView):
     """
     POST endpoint to fetch and store crime data from Data Vancouver

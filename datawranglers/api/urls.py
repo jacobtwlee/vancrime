@@ -8,4 +8,5 @@ If you need to create a new API endpoint make a new ViewSet and register it with
 """
 urlpatterns = [
     url(r'^fetch-data$', views.FetchDataView.as_view(), name='fetch-data'),
+    url(r'^geocode-data$', views.GeocodeDataView.as_view(), name='geocode-data'),
 ]
