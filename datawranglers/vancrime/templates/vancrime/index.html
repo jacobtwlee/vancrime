@@ -2,22 +2,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Vancrime</title>
+    <title>VanCrime</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-    <style>
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    #map {
-        height: 100%;
-    }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'vancrime/styles.css' %}">
 </head>
 <body>
+    <div id="menu">
+        <div class="menu-title">VanCrime</div>
+        <div class="menu-container">
+            <div class="menu-filter">
+                <div class="sub-title">Filter</div>
+                <div class="menu-content">
+                    {% include "vancrime/index_filter_menu.html" %}  
+                </div>
+            </div>
+            <div class="menu-favourites">
+                <div class="sub-title">Saved Locations</div>
+                <div class="menu-content">
+                    {% include "vancrime/index_favourites_menu.html" %} 
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="map"></div>
+    <div id="login">
+        {% include "vancrime/index_login.html" %}  
+    </div>
     <script type="text/javascript" src="{% static 'vancrime/marker.js' %}"></script>
     <script type="text/javascript" src="{% static 'vancrime/map.js' %}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNhncoP-tfsSs2qbbX_ne0GVTImbrLzf0&"></script>
