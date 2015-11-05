@@ -35,6 +35,7 @@ class CrimeViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows crimes to be viewed.
     """
+    permission_classes = [ permissions.AllowAny ] 
     queryset = Crime.objects.all()
     serializer_class = CrimeSerializer
 
@@ -42,6 +43,7 @@ class LocationViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows locations to be viewed.
     """
+    permission_classes = [ permissions.AllowAny ] 
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
     
