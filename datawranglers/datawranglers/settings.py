@@ -25,7 +25,7 @@ SECRET_KEY = '&*8p5@$3=ta=ag2n4r(3yz9rfskywh(rx#dbc78f2gqxq1(6dy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['159.203.240.58']
+ALLOWED_HOSTS = ['159.203.240.58', 'vancrime.me']
 
 
 # Application definition
