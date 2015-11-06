@@ -17,10 +17,10 @@
                     {% include "vancrime/index_filter_menu.html" %}  
                 </div>
             </div>
-            <div class="menu-favourites">
-                <div class="sub-title">Saved Locations</div>
+            <div class="menu-summary">
+                <div class="sub-title">Summary</div>
                 <div class="menu-content">
-                    {% include "vancrime/index_favourites_menu.html" %} 
+                    {% include "vancrime/index_summary_menu.html" %} 
                 </div>
             </div>
         </div>
@@ -30,6 +30,12 @@
     <div id="login">
         {% include "vancrime/index_login.html" %}  
     </div>
+    <script>
+        var default_year = {{default_year}};
+        var default_month = {{default_month}};
+        var default_latitude = {{default_latitude}};
+        var default_longitude = {{default_longitude}};
+    </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNhncoP-tfsSs2qbbX_ne0GVTImbrLzf0&"></script>
     <script type="text/javascript" src="{% static 'vancrime/js/third_party/jquery-2.1.4.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'vancrime/js/helpers.js' %}"></script>

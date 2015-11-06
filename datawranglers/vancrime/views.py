@@ -7,12 +7,44 @@ from bokeh.embed import components
 from bokeh.resources import CDN
 from math import pi 
 import calendar
+import re
 
 # Create your views here.
 
 def index(request):
-    crime_list = Crime.objects.all()[:5]
-    context = {'crime_list': crime_list}
+    crimes = Crime.objects.all()
+    latest = crimes.order_by("-year").order_by("-month")[0]
+    distinctYears = crimes.values_list('year', flat=True).distinct()
+    distinctMonths = crimes.values_list('month', flat=True).distinct()
+    
+    latitude = request.GET.get("lat")
+    longitude = request.GET.get("lng")
+    year = request.GET.get("year")
+    month = request.GET.get("month")
+    
+    isYearValid = (year not in distinctYears) and (month not in distinctMonths)
+    
+    if (year is None) or (month is None) or (not isYearValid):
+        year = latest.year
+        month = latest.month
+        
+    if (latitude is None) or (longitude is None):
+        latitude = "null"
+        longitude = "null"
+    else:
+        isLatitudeValid = re.match("^-?\d{2}\.\d{6}$", latitude) != None
+        isLongitudeValid = re.match("^-?\d{2,3}\.\d{6}$", longitude) != None
+        if not(isLatitudeValid and isLongitudeValid):
+            latitude = "null"
+            longitude = "null"
+    
+    context = {
+        "default_year": year,
+        "default_month": month,
+        "default_latitude": latitude,
+        "default_longitude": longitude
+    }
+    
     return render(request, 'vancrime/index.html', context)
 
 def summary_index(request):

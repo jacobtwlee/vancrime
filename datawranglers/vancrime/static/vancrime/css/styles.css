@@ -87,26 +87,24 @@ html, body {
     padding: 10px;
 }
 
-.menu-filter {
+.menu-filter, .menu-summary {
     width: 100%;
-    height: 50%;
-}
-
-.menu-favourites {
-    width: 100%;
-    height: 50%;
 }
 
 .menu-button {
     margin: 5px auto;
     width: 100%;
     box-sizing: border-box;
-    background-color: #BED0A3;
+    background-color: #A3BCE2;
     text-align: center;
-    padding: 5px;
+    padding: 10px;
     border-radius: 3px;
     color: #f4f4f4;
     cursor: pointer;
+}
+
+.menu-button:hover {
+    background-color: #B3CAEC;
 }
 
 .marker-tooltip p {
@@ -124,6 +122,10 @@ html, body {
     background-color: #55acee;
     border-radius: 3px;
     padding: 4px;
+}
+
+.tweet-button:hover {
+    background-color: #69B7F3;
 }
 
 .tweet-icon {
@@ -149,6 +151,33 @@ html, body {
     background-color: #EAAE21;
     border-radius: 3px;
     padding: 4px;
+}
+
+.fav-button:hover {
+    background-color: #F1BA3A;
+}
+
+select.filter-menu {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin: 7px 0;
+    padding-left:10px;
+    height: 40px;
+    font-size: 14px;
+    border: none;
+    border-radius: 3px;
+    color: #222;
+    background-color: #fafafa;
+    border: 1px solid #eee;
+    border-left: 4px solid #A3BCE2;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+select.filter-menu:hover {
+    background-color: white;
 }
 
 @media screen and (min-width: 0px) {

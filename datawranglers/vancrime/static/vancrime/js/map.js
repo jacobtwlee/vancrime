@@ -57,18 +57,26 @@ var mapManager  = {
         this.markers = [];
     },
     
+    // Set the centre and zoom of the map
+    setLocationAndZoom: function (location, zoom) {
+        this.map.setCenter(location);
+        this.map.setZoom(zoom);
+    },
+    
     // Reset map center and zoom
     resetMap: function () {
         this.map.setCenter(this.defaultMapOptions.center);
         this.map.setZoom(this.defaultMapOptions.zoom);
     },
     
+    // Display map tooltip at location with content
     displayTooltip: function (location, content) {
         this.infoWindow.setContent(content);
         this.infoWindow.setPosition(location);
         this.infoWindow.open(this.map);
     },
     
+    // Add a click handler to the map
     onMapClick: function (handler) {
         this.map.addListener('click', handler);
     }
