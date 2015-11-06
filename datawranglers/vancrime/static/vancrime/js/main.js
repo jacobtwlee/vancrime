@@ -7,6 +7,9 @@ $(document).ready(function () {
         beforeSend: showLoadingOverlay,
         success: addMapMarkers,
     });
+    
+    $('#map').delegate(".fav-button", "click", addFavLocation);    
+    mapManager.onMapClick(handleMapClick);
 });
 
 var $loadingOverlay = $('#loading-overlay');
@@ -17,6 +20,11 @@ function showLoadingOverlay () {
 
 function hideLoadingOverlay () {
     $loadingOverlay.hide();
+}
+
+function handleMapClick (event) {
+    var location = event.latLng;
+    mapManager.displayTooltip(location, renderFavButton(location));
 }
 
 function addMapMarkers (response) {
@@ -38,4 +46,20 @@ function addMapMarkers (response) {
     });
     
     hideLoadingOverlay();
+}
+
+function addFavLocation () {
+    var title = $(this).attr('data-title');
+    var latitude = parseFloat($(this).attr('data-lat'));
+    var latitude = parseFloat($(this).attr('data-lng'));
+    
+    var name = "";
+    
+    while (name.length === 0) {
+        name = prompt("Enter a name for this location:", title);
+        if (name === null) return;
+    }
+    
+    // TODO: sanitize name   
+    // TODO: make ajax request to save location
 }

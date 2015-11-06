@@ -61,5 +61,15 @@ var mapManager  = {
     resetMap: function () {
         this.map.setCenter(this.defaultMapOptions.center);
         this.map.setZoom(this.defaultMapOptions.zoom);
+    },
+    
+    displayTooltip: function (location, content) {
+        this.infoWindow.setContent(content);
+        this.infoWindow.setPosition(location);
+        this.infoWindow.open(this.map);
+    },
+    
+    onMapClick: function (handler) {
+        this.map.addListener('click', handler);
     }
 };

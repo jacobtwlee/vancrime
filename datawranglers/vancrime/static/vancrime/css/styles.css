@@ -47,7 +47,6 @@ html, body {
     background-color: rgba(1,1,1,0.2);
 }
 
-
 .loading-icon {
     background-image: url('/static/vancrime/images/loading.gif');
     width: 134px;
@@ -108,6 +107,48 @@ html, body {
     border-radius: 3px;
     color: #f4f4f4;
     cursor: pointer;
+}
+
+.marker-tooltip p {
+    line-height: 10px;
+}
+
+.tooltip-button {
+    display: inline-block;
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+.tweet-button {
+    color: white;
+    background-color: #55acee;
+    border-radius: 3px;
+    padding: 4px;
+}
+
+.tweet-icon {
+    background-image: url('/static/vancrime/images/tweet-icon.png');
+    background-repeat: no-repeat;
+    float:left;
+    padding-right: 4px;
+    width: 16px;
+    height: 16px
+}
+
+.fav-icon {
+    background-image: url('/static/vancrime/images/fav-icon.png');
+    background-repeat: no-repeat;
+    float:left;
+    padding-right: 4px;
+    width: 16px;
+    height: 16px
+}
+
+.fav-button {
+    color: white;
+    background-color: #EAAE21;
+    border-radius: 3px;
+    padding: 4px;
 }
 
 @media screen and (min-width: 0px) {
