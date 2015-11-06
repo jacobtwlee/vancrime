@@ -1,15 +1,24 @@
 $(document).ready(function () {
     mapManager.initMap();
-
-    $.ajax({
-        method: "GET",
-        url: "/api/crimes",
-        beforeSend: showLoadingOverlay,
-        success: addMapMarkers,
-    });
+    
+    $('#filter-crime-type').val("all")
+    $('#filter-crime-year').val(default_year)
+    $('#filter-crime-month').val(default_month)
+    
+    updateResults();
+    
+    if (default_latitude && default_longitude) {
+        var location = {
+            lat: parseFloat(default_latitude),
+            lng: parseFloat(default_longitude)
+        }
+        
+        mapManager.setLocationAndZoom(location, 18);
+    }
     
     $('#map').delegate(".fav-button", "click", addFavLocation);    
     mapManager.onMapClick(handleMapClick);
+    $('#filter-button').click(updateResults);
 });
 
 var $loadingOverlay = $('#loading-overlay');
@@ -30,6 +39,8 @@ function handleMapClick (event) {
 function addMapMarkers (response) {
     var crimes = response.results;
     
+    mapManager.deleteMarkers();
+    
     crimes.forEach(function(crime) {
         // Don't add this crime if it's location hasn't been geocoded yet
         if (crime.location.latitude == null || crime.location.latitude == null) {
@@ -46,6 +57,35 @@ function addMapMarkers (response) {
     });
     
     hideLoadingOverlay();
+}
+
+function updateResults () {
+    var crime_type = $('#filter-crime-type').find(":selected").val();
+    var year = $('#filter-crime-year').find(":selected").val();
+    var month = $('#filter-crime-month').find(":selected").val();
+    
+    var queryParams = {};
+    
+    if (crime_type != "all") {
+        queryParams.crime_type = crime_type;
+    }
+    
+    if (year != "all") {
+        queryParams.year = year;
+    }
+    
+    if (month != "all") {
+        queryParams.month = month;
+    }
+    
+    var url = "/api/crimes?" + $.param(queryParams);
+        
+    $.ajax({
+        url: url,
+        method: "GET",
+        beforeSend: showLoadingOverlay,
+        success: addMapMarkers,
+    });
 }
 
 function addFavLocation () {

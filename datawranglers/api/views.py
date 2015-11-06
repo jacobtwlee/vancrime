@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import filters
 from api.serializers import UserSerializer, GroupSerializer, CrimeSerializer, LocationSerializer, LoadedDataSerializer
 from geopy.geocoders import GoogleV3
 
@@ -38,6 +39,8 @@ class CrimeViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [ permissions.AllowAny ] 
     queryset = Crime.objects.all()
     serializer_class = CrimeSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('crime_type', 'month', 'year')
 
 class LocationViewSet(viewsets.ReadOnlyModelViewSet):
     """
