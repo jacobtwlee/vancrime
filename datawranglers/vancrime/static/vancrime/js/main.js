@@ -19,6 +19,8 @@ $(document).ready(function () {
     $('#map').delegate(".fav-button", "click", addFavLocation);    
     mapManager.onMapClick(handleMapClick);
     $('#filter-button').click(updateResults);
+    $('#graph-button').click(showSummaryGraph);
+    $('.graph-bg').click(hideSummaryGraph);
 });
 
 var $loadingOverlay = $('#loading-overlay');
@@ -85,6 +87,50 @@ function updateResults () {
         method: "GET",
         beforeSend: showLoadingOverlay,
         success: addMapMarkers,
+    });
+}
+
+function showSummaryGraph () {
+    var year = $('#filter-crime-year').find(":selected").val();
+    var month = $('#filter-crime-month').find(":selected").val();
+    
+    if (month == "all") {
+        month = 1;
+    }
+    
+    var url = "/summary/graph/" + year + "/" + month;
+    
+    $.ajax({
+        url: url,
+        method: "GET",
+        success: function (response) {
+            $('#graph-overlay').find('.graph-content').html(response);
+            $('#graph-overlay').fadeIn(300);
+        }
+    });
+}
+
+function hideSummaryGraph () {
+    $('#graph-overlay').fadeOut(300);
+}
+
+function displaySummaryTable () {
+    var year = $('#filter-crime-year').find(":selected").val();
+    var month = $('#filter-crime-month').find(":selected").val();
+    
+    if (month == "all") {
+        month = "";
+    }
+    
+    var url = "/summary/" + year + "/" + month;
+    
+    $.ajax({
+        url: url,
+        method: "GET",
+        success: function (response) {
+            $('#graph-overlay').find('.graph-content').html(response);
+            $('#graph-overlay').fadeIn(300);
+        },
     });
 }
 

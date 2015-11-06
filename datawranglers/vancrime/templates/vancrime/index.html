@@ -6,6 +6,7 @@
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{% static 'vancrime/css/styles.css' %}">
+    <link href="http://cdn.pydata.org/bokeh/release/bokeh-0.10.0.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div id="menu">
@@ -25,6 +26,10 @@
             </div>
         </div>
     </div>
+    <div id="graph-overlay">
+        <div class="graph-content"></div>
+        <div class="graph-bg"></div>
+    </div>
     <div id=loading-overlay><div class="loading-icon"></div></div>
     <div id="map"></div>
     <div id="login">
@@ -37,6 +42,7 @@
         var default_longitude = {{default_longitude}};
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNhncoP-tfsSs2qbbX_ne0GVTImbrLzf0&"></script>
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.10.0.min.js"></script>
     <script type="text/javascript" src="{% static 'vancrime/js/third_party/jquery-2.1.4.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'vancrime/js/helpers.js' %}"></script>
     <script type="text/javascript" src="{% static 'vancrime/js/map.js' %}"></script>
