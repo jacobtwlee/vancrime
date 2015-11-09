@@ -38,13 +38,18 @@ function handleMapClick (event) {
     mapManager.displayTooltip(location, renderFavButton(location));
 }
 
+function handleError (message) {
+    statusManager.error(message);
+    hideLoadingOverlay();
+}
+
 function addMapMarkers (response) {
     var crimes = response.results;
     
     mapManager.deleteMarkers();
     
     if (crimes.length === 0) {
-        statusManager.info("No crimes found.");
+        statusManager.info("No crimes found");
     }
     
     crimes.forEach(function(crime) {
@@ -91,6 +96,9 @@ function updateResults () {
         method: "GET",
         beforeSend: showLoadingOverlay,
         success: addMapMarkers,
+        error: function () {
+            handleError("Error obtaining crime data");
+        }
     });
 }
 
@@ -98,6 +106,7 @@ function showSummaryGraph () {
     showLoadingOverlay();
     var year = $('#filter-crime-year').find(":selected").val();
     var month = $('#filter-crime-month').find(":selected").val();
+    var monthRange = $('#summary-month-range').find(":selected").val();
     
     if (month == "all") {
         month = 1;
@@ -108,10 +117,16 @@ function showSummaryGraph () {
     $.ajax({
         url: url,
         method: "GET",
+        data: {
+            "monthRange": monthRange
+        },
         success: function (response) {
             $('#graph-overlay').find('.graph-content').html(response);
             $('#graph-overlay').fadeIn(300);
             hideLoadingOverlay();
+        },
+        error: function () {
+            handleError("Error generating summary graph")
         }
     });
 }
