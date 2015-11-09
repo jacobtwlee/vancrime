@@ -3,7 +3,7 @@ var mapManager  = {
     markers: [],
     infoWindow: null,
     defaultMapOptions: {
-        center: {lat: 49.261011, lng: -123.153807},
+        center: {lat: 49.255930, lng: -123.142319},
         zoom: 13,
         streetViewControl: false,
         mapTypeControl: false

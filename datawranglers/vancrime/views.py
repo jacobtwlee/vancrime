@@ -13,7 +13,10 @@ import re
 
 def index(request):
     crimes = Crime.objects.all()
-    latest = crimes.order_by("-year").order_by("-month")[0]
+    
+    latestYear = crimes.order_by("-year")[0].year
+    latestMonth = crimes.filter(year=latestYear).order_by("-month")[0].month
+    
     distinctYears = crimes.values_list('year', flat=True).distinct()
     distinctMonths = crimes.values_list('month', flat=True).distinct()
     
@@ -25,8 +28,8 @@ def index(request):
     isYearValid = (year not in distinctYears) and (month not in distinctMonths)
     
     if (year is None) or (month is None) or (not isYearValid):
-        year = latest.year
-        month = latest.month
+        year = latestYear
+        month = latestMonth
         
     if (latitude is None) or (longitude is None):
         latitude = "null"

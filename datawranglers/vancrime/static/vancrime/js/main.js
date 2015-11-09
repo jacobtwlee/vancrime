@@ -26,11 +26,11 @@ $(document).ready(function () {
 var $loadingOverlay = $('#loading-overlay');
 
 function showLoadingOverlay () {
-    $loadingOverlay.show();
+    $loadingOverlay.fadeIn(300);
 }
 
 function hideLoadingOverlay () {
-    $loadingOverlay.hide();
+    $loadingOverlay.fadeOut(300);
 }
 
 function handleMapClick (event) {
@@ -42,6 +42,10 @@ function addMapMarkers (response) {
     var crimes = response.results;
     
     mapManager.deleteMarkers();
+    
+    if (crimes.length === 0) {
+        statusManager.info("No crimes found.");
+    }
     
     crimes.forEach(function(crime) {
         // Don't add this crime if it's location hasn't been geocoded yet
@@ -91,6 +95,7 @@ function updateResults () {
 }
 
 function showSummaryGraph () {
+    showLoadingOverlay();
     var year = $('#filter-crime-year').find(":selected").val();
     var month = $('#filter-crime-month').find(":selected").val();
     
@@ -106,6 +111,7 @@ function showSummaryGraph () {
         success: function (response) {
             $('#graph-overlay').find('.graph-content').html(response);
             $('#graph-overlay').fadeIn(300);
+            hideLoadingOverlay();
         }
     });
 }
