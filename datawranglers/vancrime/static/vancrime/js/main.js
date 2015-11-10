@@ -108,6 +108,7 @@ function showSummaryGraph () {
     showLoadingOverlay();
     var year = $('#filter-crime-year').find(":selected").val();
     var month = $('#filter-crime-month').find(":selected").val();
+    var crimeType = $('#filter-crime-type').find(":selected").val();
     var monthRange = $('#summary-month-range').find(":selected").val();
     
     if (month == "all") {
@@ -120,7 +121,8 @@ function showSummaryGraph () {
         url: url,
         method: "GET",
         data: {
-            "monthRange": monthRange
+            "monthRange": monthRange,
+            "crimeType": crimeType
         },
         success: function (response) {
             $('#graph-overlay').find('.graph-content').html(response);

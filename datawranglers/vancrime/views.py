@@ -70,17 +70,21 @@ def summary_date(request, month, year):
 
 def graph(request, month, year):
     monthRange = int(request.GET.get("monthRange"))
+    crimeType = request.GET.get("crimeType")
         
     if monthRange is None:
         monthRange = 12
+        
+    if crimeType is None or crimeType == "all":
+        crimeType = "All Crimes"
     
     month = int(month)
     year = int(year)
     try:
         dat = Crime.data_summary(year,month,monthRange)
-        title = str(monthRange) + '-month crime trend since ' + calendar.month_name[month] + ' ' + str(year)
+        title = str(monthRange) + '-Month Crime Trend (' + crimeType + ') Since ' + calendar.month_name[month] + ' ' + str(year)
         graph = figure(x_range = list(dat.index), x_axis_label = "Month", y_axis_label = "Number of Crimes", width = 1200, title = title, tools="pan,wheel_zoom,box_zoom,reset,save")
-        graph.line(list(dat.index), dat["All Crimes"]) 
+        graph.line(list(dat.index), dat[crimeType])
         graph.xaxis.major_label_orientation = - pi/2
         script, div = components(graph, CDN)
         return render(request, 'vancrime/crime_summary_graph.html', {'the_script': script, 'the_div': div})
