@@ -124,8 +124,13 @@ html, body {
 }
 
 .menu-container {
-    height: 100%;
+    height: calc(100% - 42px);
     width: 100%;
+    overflow-y: scroll;
+}
+
+.menu-container::-webkit-scrollbar { 
+    display: none; 
 }
 
 .menu-content {
@@ -225,6 +230,40 @@ select.filter-menu:hover {
     background-color: white;
 }
 
+#summary-table table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 14px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+}
+
+#summary-table th {
+    font-weight: 400;
+    color: #f4f4f4;
+    background-color: #A3BCE2;
+    padding: 5px;
+}
+
+#summary-table td {
+    color: #555;
+    padding: 5px;
+}
+
+#summary-table tr:nth-child(odd) {
+    background-color: #ececec;
+}
+
+#summary-table tr:nth-child(even) {
+    background-color: #f4f4f4;
+}
+
+.content-sub-title {
+    color: #555;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 5px;
+}
+
 @media screen and (min-width: 0px) {
     #map {
         width: 70%;
@@ -245,9 +284,9 @@ select.filter-menu:hover {
 
 @media screen and (min-width: 1200px) {
     #map {
-        width: 85%;
+        width: 80%;
     }
     #menu {
-        width: 15%;
+        width: 20%;
     }
 }

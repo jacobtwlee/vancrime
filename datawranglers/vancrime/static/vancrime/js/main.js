@@ -71,6 +71,8 @@ function addMapMarkers (response) {
 }
 
 function updateResults () {
+    updateSummaryTable();
+    
     var crime_type = $('#filter-crime-type').find(":selected").val();
     var year = $('#filter-crime-year').find(":selected").val();
     var month = $('#filter-crime-month').find(":selected").val();
@@ -135,7 +137,7 @@ function hideSummaryGraph () {
     $('#graph-overlay').fadeOut(300);
 }
 
-function displaySummaryTable () {
+function updateSummaryTable () {
     var year = $('#filter-crime-year').find(":selected").val();
     var month = $('#filter-crime-month').find(":selected").val();
     
@@ -149,9 +151,11 @@ function displaySummaryTable () {
         url: url,
         method: "GET",
         success: function (response) {
-            $('#graph-overlay').find('.graph-content').html(response);
-            $('#graph-overlay').fadeIn(300);
+            $('#summary-table').html(response);
         },
+        error: function () {
+            handleError("Error generating summary table")
+        }
     });
 }
 
