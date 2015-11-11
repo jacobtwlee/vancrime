@@ -52,7 +52,7 @@ html, body {
     color: #555;
     width: 350px;
     height: 45px;
-    line-height: 45px;
+    line-height: 50px;
     text-align: center;
     background-color: #f4f4f4;
     border-top-left-radius: 3px;
@@ -187,7 +187,7 @@ html, body {
     width: 100%;
 }
 
-.menu-button {
+.menu-button, .menu-toggle-button {
     margin: 5px auto;
     width: 100%;
     box-sizing: border-box;
@@ -199,8 +199,16 @@ html, body {
     cursor: pointer;
 }
 
-.menu-button:hover {
+.menu-button:hover, .menu-toggle-button:hover {
     background-color: #B3CAEC;
+}
+
+.menu-toggle-button.off {
+    background-color: #BDBDBD;
+}
+
+.menu-toggle-button.off:hover {
+    background-color: #C3C3C3;
 }
 
 .marker-tooltip p {
@@ -338,6 +346,10 @@ select.filter-menu:hover {
 
 .user-button:hover {
     -webkit-filter: brightness(1.5);
+}
+
+hr {
+    border: 2px solid #e6e6e6;
 }
 
 @media screen and (min-width: 0px) {

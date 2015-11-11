@@ -29,6 +29,20 @@ $(document).ready(function () {
             $('.favs-list').addClass("open");
         }
     });
+    
+    $('#toggle-markers').click(function () {
+        var $this = $(this);
+        
+        if ($this.hasClass("off")) {
+            mapManager.showMarkers();
+            $this.removeClass("off");
+            $this.text("Hide Markers");
+        } else {
+            mapManager.hideMarkers();
+            $this.addClass("off");
+            $this.text("Show Markers");
+        }
+    });
 });
 
 var $loadingOverlay = $('#loading-overlay');
