@@ -9,4 +9,5 @@ urlpatterns = [
     # ex: /summary/<year>/<month>
     url(r'summary/(?P<year>[0-9]+)/(?P<month>[0-9]+)/$', views.summary_date, name = 'summary_specific'),
     url(r'summary/graph/(?P<year>[0-9]+)/(?P<month>[0-9]+)/$', views.graph, name = 'graph'),
+    url(r'logout/$', views.logout_view, name = 'logout'),
 ]

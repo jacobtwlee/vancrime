@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
+from django.contrib.auth import logout
 from .models import Crime
 # from .forms import CrimeForm
 from bokeh.plotting import figure, output_file, show
@@ -91,3 +92,7 @@ def graph(request, month, year):
         return render(request, 'vancrime/crime_summary_graph.html', {'the_script': script, 'the_div': div})
     except IndexError:
         raise Http404("Invalid month entered.")
+        
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')

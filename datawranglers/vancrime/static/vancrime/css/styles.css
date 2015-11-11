@@ -310,20 +310,33 @@ select.filter-menu:hover {
     margin-bottom: 5px;
 }
 
-.settings-button {
+.user-buttons {
     position: absolute;
     top: 0;
-    right: 0;
+    right: 5px;
+}
+
+.settings-button {
+    top: -1px;
     background-image: url('/static/vancrime/images/gear-icon.svg');
+}
+
+.logout-button {
+    background-image: url('/static/vancrime/images/logout-icon.svg');
+}
+
+.user-button {
+    position: relative;
+    display: inline-block;
     background-position: center;
     background-repeat: no-repeat;
     background-size: 24px 24px;
-    width: 50px;
+    width: 22px;
     height: 50px;
     cursor: pointer;
 }
 
-.settings-button:hover {
+.user-button:hover {
     -webkit-filter: brightness(1.5);
 }
 
