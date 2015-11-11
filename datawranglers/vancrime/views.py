@@ -45,7 +45,8 @@ def index(request):
         "default_year": year,
         "default_month": month,
         "default_latitude": latitude,
-        "default_longitude": longitude
+        "default_longitude": longitude,
+        "user": request.user
     }
     
     return render(request, 'vancrime/index.html', context)

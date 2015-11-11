@@ -43,14 +43,60 @@ html, body {
 #login {
     position: absolute;
     z-index: 10;
-    top: 0;
+    top: 20px;
     right: 20px;
+    -webkit-filter: drop-shadow(0 0 2px #A3BCE2);
+}
+
+.login-header {
+    color: #555;
     width: 350px;
     height: 45px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    line-height: 45px;
+    text-align: center;
     background-color: #f4f4f4;
-    box-shadow: 0 0 25px 5px rgba(1,1,1,0.15);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.favs-list {
+    margin: auto;
+    width: 100%;
+    transition: height 1s ease;
+    background-color: #f4f4f4;
+    border-bottom: 4px solid #A3BCE2;
+    border-top: 2px solid #eee;
+    overflow-y: scroll;
+    height: 0;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.favs-list.open {
+    height: 400px;
+}
+
+.toggle-favs {
+    background-image: url('/static/vancrime/images/fav-icon.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    left: calc(50% - 35px);
+    bottom: -25px;;
+    width: 70px;
+    height: 25px;
+    background-color: #A3BCE2;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    cursor: pointer;
+}
+
+.toggle-favs:hover + .favs-list {
+    border-bottom: 4px solid #B2C6E6;
+}
+
+.toggle-favs:hover {
+    background-color: #B2C6E6;
 }
 
 #graph-overlay {
@@ -262,6 +308,23 @@ select.filter-menu:hover {
     color: #555;
     border-bottom: 2px solid #eee;
     margin-bottom: 5px;
+}
+
+.settings-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: url('/static/vancrime/images/gear-icon.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.settings-button:hover {
+    -webkit-filter: brightness(1.5);
 }
 
 @media screen and (min-width: 0px) {

@@ -1,1 +1,14 @@
-<div style="padding:12px; text-align: center">Login / Register template</div>
+<div class="login-header">
+    {% if user.is_authenticated %}
+    Logged in as <b>{{user}}</b>
+    <div class="settings-button"></div>
+    {% else %}
+    Login / Register
+    {% endif %}
+</div>
+
+{% if user.is_authenticated %}
+<div class="toggle-favs"></div>
+{% endif %}
+
+<div class="favs-list"></div>

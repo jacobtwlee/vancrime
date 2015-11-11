@@ -21,6 +21,14 @@ $(document).ready(function () {
     $('#filter-button').click(updateResults);
     $('#graph-button').click(showSummaryGraph);
     $('.graph-bg').click(hideSummaryGraph);
+    
+    $('.toggle-favs').click(function () {
+        if ($('.favs-list').hasClass("open")) {
+            $('.favs-list').removeClass("open");
+        } else {
+            $('.favs-list').addClass("open");
+        }
+    });
 });
 
 var $loadingOverlay = $('#loading-overlay');
