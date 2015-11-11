@@ -1,17 +1,21 @@
 function getCrimeIconURL (crimeType) {
     switch (crimeType) {
         case 'Commercial Break and Enter':
-            return '/static/vancrime/images/gmaps-icons/red-dot.png';
+            return '/static/vancrime/images/svg-icons/pin-building.svg';
         case 'Mischief Over $5000':
+            return '/static/vancrime/images/svg-icons/pin-spray-over.svg';
         case 'Mischief Under $5000':
-            return '/static/vancrime/images/gmaps-icons/blue-dot.png';
+            return '/static/vancrime/images/svg-icons/pin-spray-under.svg';
         case 'Theft From Auto Under $5000':
-        case 'Theft From Auto Over  $5000':
+            return '/static/vancrime/images/svg-icons/pin-theft-under.svg';
+        case 'Theft From Auto Over $5000':
+            return '/static/vancrime/images/svg-icons/pin-theft-over.svg';
         case 'Theft Of Auto Under $5000':
+            return '/static/vancrime/images/svg-icons/pin-car-under.svg';
         case 'Theft Of Auto Over $5000':
-            return '/static/vancrime/images/gmaps-icons/green-dot.png';
+            return '/static/vancrime/images/svg-icons/pin-car-over.svg';
         default:
-            return '/static/vancrime/images/gmaps-icons/red-dot.png';
+            return '/static/vancrime/images/svg-icons/pin-default.svg';
     }
 }
 
