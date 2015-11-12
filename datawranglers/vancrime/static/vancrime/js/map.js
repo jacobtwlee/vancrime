@@ -1,5 +1,6 @@
 var mapManager  = {
     map: null,
+    markersAreVisible: true,
     markers: [],
     infoWindow: null,
     defaultMapOptions: {
@@ -25,7 +26,9 @@ var mapManager  = {
             icon: icon
         });
         
-        marker.setMap(this.map);
+        var map = this.markersAreVisible ? this.map : null;
+        
+        marker.setMap(map);
         marker.addListener('click', function() {
             self.infoWindow.setContent(content);
             self.infoWindow.open(this.map, marker);
@@ -44,16 +47,18 @@ var mapManager  = {
     // Hide all markers
     hideMarkers: function () {
         this.setMapOnAll(null);
+        this.markersAreVisible = false;
     },
 
     // Shows all markers
     showMarkers: function () {
         this.setMapOnAll(this.map);
+        this.markersAreVisible = true;
     },
     
     // Delete all markers
     deleteMarkers: function () {
-        this.hideMarkers();
+        this.setMapOnAll(null);
         this.markers = [];
     },
     
