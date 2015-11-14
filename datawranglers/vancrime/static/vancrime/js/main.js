@@ -6,7 +6,7 @@ $(document).ready(function () {
     $('#filter-crime-month').val(default_month)
     
     updateResults();
-  //  mapManager.getArray(); 
+
     if (default_latitude && default_longitude) {
         var location = {
             lat: parseFloat(default_latitude),
@@ -81,9 +81,8 @@ function handleError (message) {
 
 function addMapMarkers (response) {
     var crimes = response.results;
-    
-    mapManager.deleteMarkers();
-    
+    mapManager.clearArray();    
+    mapManager.deleteMarkers();    
     if (crimes.length === 0) {
         statusManager.info("No crimes found");
     }
@@ -128,7 +127,7 @@ function updateResults () {
     }
     
     var url = "/api/crimes?" + $.param(queryParams);
-    mapManager.getArray();    
+
     $.ajax({
         url: url,
         method: "GET",

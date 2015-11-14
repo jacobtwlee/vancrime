@@ -18,7 +18,7 @@ var mapManager  = {
         this.positions = new google.maps.MVCArray(this.positions);
         this.map = new google.maps.Map(document.getElementById('map'), this.defaultMapOptions);
         this.infoWindow = new google.maps.InfoWindow({content: ''});
-        this.heatmap = new google.maps.visualization.HeatmapLayer({ data: this.positions, radius: 50});
+        this.heatmap = new google.maps.visualization.HeatmapLayer({ data: this.positions, radius: 30});
     },
     
     // Add a marker to the map
@@ -49,12 +49,7 @@ var mapManager  = {
             this.markers[i].setMap(map);
         }
     },
-
-    // getArray
-    getArray: function () {
-       this.positions = new google.maps.MVCArray([]);
-    },
-    
+   
     // Hide all markers
     hideMarkers: function () {
         this.setMapOnAll(null);
@@ -71,19 +66,12 @@ var mapManager  = {
     deleteMarkers: function () {
         this.setMapOnAll(null);
         this.markers = [];
-//        this.positions = new google.maps.MVCArray([]);
     },
    
-    // Get a new array
-    getArray: function () {
-         this.positions = new google.maps.MVCArray([]);
-         console.log(this.positions.length);
-    }
-
     // Show heatmap
     showHeatmap: function () {
         this.heatmap.setMap(this.map);
-        this.heatmapIsVisible = true;
+        this.heatmapIsVisible = true; 
     }, 
 
     // Hide heatmap
@@ -91,6 +79,12 @@ var mapManager  = {
         this.heatmap.setMap(null);
         this.heatmapIsVisible = false;
     },
+
+    // Clear the position array
+    clearArray: function () {
+       this.positions.clear();
+    },
+
     // Set the centre and zoom of the map
     setLocationAndZoom: function (location, zoom) {
         this.map.setCenter(location);
