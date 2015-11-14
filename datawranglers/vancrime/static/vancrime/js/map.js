@@ -1,5 +1,8 @@
 var mapManager  = {
     map: null,
+    positions: [],
+    heatmap: null,
+    heatmapIsVisible: false,
     markersAreVisible: true,
     markers: [],
     infoWindow: null,
@@ -12,8 +15,10 @@ var mapManager  = {
     
     // Initialize the map centred on Vancouver
     initMap: function () {
+        this.positions = new google.maps.MVCArray(this.positions);
         this.map = new google.maps.Map(document.getElementById('map'), this.defaultMapOptions);
         this.infoWindow = new google.maps.InfoWindow({content: ''});
+        this.heatmap = new google.maps.visualization.HeatmapLayer({ data: this.positions, radius: 50});
     },
     
     // Add a marker to the map
@@ -35,6 +40,7 @@ var mapManager  = {
         });
         
         this.markers.push(marker);
+        this.positions.push(new google.maps.LatLng(location.lat, location.lng));
     },
     
     // Sets the map for all markers
@@ -42,6 +48,11 @@ var mapManager  = {
         for (var i = 0; i < this.markers.length; i++) {
             this.markers[i].setMap(map);
         }
+    },
+
+    // getArray
+    getArray: function () {
+       this.positions = new google.maps.MVCArray([]);
     },
     
     // Hide all markers
@@ -60,8 +71,26 @@ var mapManager  = {
     deleteMarkers: function () {
         this.setMapOnAll(null);
         this.markers = [];
+//        this.positions = new google.maps.MVCArray([]);
     },
-    
+   
+    // Get a new array
+    getArray: function () {
+         this.positions = new google.maps.MVCArray([]);
+         console.log(this.positions.length);
+    }
+
+    // Show heatmap
+    showHeatmap: function () {
+        this.heatmap.setMap(this.map);
+        this.heatmapIsVisible = true;
+    }, 
+
+    // Hide heatmap
+    hideHeatmap: function () {
+        this.heatmap.setMap(null);
+        this.heatmapIsVisible = false;
+    },
     // Set the centre and zoom of the map
     setLocationAndZoom: function (location, zoom) {
         this.map.setCenter(location);
