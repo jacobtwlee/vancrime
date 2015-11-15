@@ -6,7 +6,7 @@ $(document).ready(function () {
     $('#filter-crime-month').val(default_month)
     
     updateResults();
-    
+
     if (default_latitude && default_longitude) {
         var location = {
             lat: parseFloat(default_latitude),
@@ -43,6 +43,20 @@ $(document).ready(function () {
             $this.text("Show Markers");
         }
     });
+
+    $('#toggle-heatmap').click(function () {
+        var $this = $(this);
+        
+        if ($this.hasClass("off")) {
+            mapManager.showHeatmap();
+            $this.removeClass("off");
+            $this.text("Hide Heatmap");
+        } else {
+            mapManager.hideHeatmap();
+            $this.addClass("off");
+            $this.text("Show Heatmap");
+        }
+     });
 });
 
 var $loadingOverlay = $('#loading-overlay');
@@ -67,9 +81,8 @@ function handleError (message) {
 
 function addMapMarkers (response) {
     var crimes = response.results;
-    
-    mapManager.deleteMarkers();
-    
+    mapManager.clearPositions();    
+    mapManager.deleteMarkers();    
     if (crimes.length === 0) {
         statusManager.info("No crimes found");
     }
@@ -114,7 +127,7 @@ function updateResults () {
     }
     
     var url = "/api/crimes?" + $.param(queryParams);
-        
+
     $.ajax({
         url: url,
         method: "GET",
