@@ -1,6 +1,6 @@
 var mapManager  = {
     map: null,
-    positions: [],
+    positions: null,
     heatmap: null,
     heatmapIsVisible: false,
     markersAreVisible: true,
@@ -15,7 +15,7 @@ var mapManager  = {
     
     // Initialize the map centred on Vancouver
     initMap: function () {
-        this.positions = new google.maps.MVCArray(this.positions);
+        this.positions = new google.maps.MVCArray([]);
         this.map = new google.maps.Map(document.getElementById('map'), this.defaultMapOptions);
         this.infoWindow = new google.maps.InfoWindow({content: ''});
         this.heatmap = new google.maps.visualization.HeatmapLayer({ data: this.positions, radius: 30});
@@ -81,7 +81,7 @@ var mapManager  = {
     },
 
     // Clear the position array
-    clearArray: function () {
+    clearPositions: function () {
        this.positions.clear();
     },
 

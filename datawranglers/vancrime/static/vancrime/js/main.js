@@ -81,7 +81,7 @@ function handleError (message) {
 
 function addMapMarkers (response) {
     var crimes = response.results;
-    mapManager.clearArray();    
+    mapManager.clearPositions();    
     mapManager.deleteMarkers();    
     if (crimes.length === 0) {
         statusManager.info("No crimes found");
