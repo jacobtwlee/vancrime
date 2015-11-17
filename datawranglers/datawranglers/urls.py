@@ -24,6 +24,7 @@ router.register(r'groups', views.GroupViewSet)
 router.register(r'crimes', views.CrimeViewSet)
 router.register(r'locations', views.LocationViewSet)
 router.register(r'loaded-data', views.LoadedDataViewSet)
+router.register(r'favorites', views.FavoriteViewSet, base_name="favorite")
 
 urlpatterns = [
     url(r'^$', include('vancrime.urls', namespace='index')),

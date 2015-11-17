@@ -1,12 +1,13 @@
 from django.contrib.auth.models import User, Group
-from vancrime.models import Crime, Location, LoadedData
+from vancrime.models import Crime, Location, LoadedData, Favorite
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import filters
-from api.serializers import UserSerializer, GroupSerializer, CrimeSerializer, LocationSerializer, LoadedDataSerializer
+from api.serializers import UserSerializer, GroupSerializer, CrimeSerializer, LocationSerializer, LoadedDataSerializer, FavoriteSerializer
 from geopy.geocoders import GoogleV3
+from django.db import IntegrityError
 
 import geopy
 import urllib.request
@@ -31,6 +32,38 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+    
+class FavoriteViewSet(viewsets.ViewSet):
+    def list(self, request):
+        queryset = Favorite.objects.filter(user=self.request.user)
+        serializer = FavoriteSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def create(self, request):
+        try:
+            data = request.data
+            Favorite(user=self.request.user,name=data['name'],latitude=data['latitude'],longitude=data['longitude']).save()
+            return Response({"success": True})
+        except IntegrityError:
+            return Response({"success": False, "message": "a favorite with that name already exists"})
+        except:
+            return Response({"success": False, "message": "an error occurred adding the favorite"})
+
+    def destroy(self, request, pk=None):
+        try:
+            Favorite.objects.get(user=self.request.user,name=pk).delete()
+            return Response({"success": True})
+        except:
+            return Response({"success": False, "message": "an error occurred deleting the favorite"})
+            
+    def retrieve(self, request, pk=None):
+        pass
+
+    def update(self, request, pk=None):
+        pass
+
+    def partial_update(self, request, pk=None):
+        pass
 
 class CrimeViewSet(viewsets.ReadOnlyModelViewSet):
     """

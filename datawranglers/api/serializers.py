@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from vancrime.models import Crime, Location, LoadedData
+from vancrime.models import Crime, Location, LoadedData, Favorite
 from rest_framework import serializers
 
 
@@ -13,6 +13,11 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ('url', 'name')
+        
+class FavoriteSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Favorite
+        fields = ('name', 'latitude', 'longitude')
 
 
 class LocationSerializer(serializers.ModelSerializer):
