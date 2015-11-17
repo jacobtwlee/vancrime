@@ -118,6 +118,8 @@ var mapManager  = {
             lng: event.latLng.lng()
         };
         
-        this.displayTooltip(location, renderFavButton(location));
+        if (is_authenticated) {
+            this.displayTooltip(location, renderFavButton(location));
+        }
     }
 };
