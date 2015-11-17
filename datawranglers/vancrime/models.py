@@ -13,8 +13,6 @@ class Favorites(models.Model):
 class VanCrimeUser(models.Model):
     user = models.OneToOneField(User)
     favorites = models.ManyToManyField(Favorites)
-    def __str__(self):
-        return user.get_username()
 
 class Location(models.Model):
     address = models.CharField(max_length=100, unique=True)
