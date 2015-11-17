@@ -47,13 +47,27 @@
         var default_month = {{default_month}};
         var default_latitude = {{default_latitude}};
         var default_longitude = {{default_longitude}};
+        {% if user.is_authenticated %}
+        var is_authenticated = true;
+        {% else %}
+        var is_authenticated = false;
+        {% endif %}
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNhncoP-tfsSs2qbbX_ne0GVTImbrLzf0&libraries=visualization"></script>
-    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.10.0.min.js"></script>
+    
+    <!-- third party dependencies -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNhncoP-tfsSs2qbbX_ne0GVTImbrLzf0&libraries=visualization"></script>
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-0.10.0.min.js"></script>
     <script type="text/javascript" src="{% static 'vancrime/js/third_party/jquery-2.1.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'vancrime/js/third_party/underscore-1.8.3.min.js' %}"></script>
+
+    <!-- main app -->
     <script type="text/javascript" src="{% static 'vancrime/js/helpers.js' %}"></script>
-    <script type="text/javascript" src="{% static 'vancrime/js/map.js' %}"></script>
-    <script type="text/javascript" src="{% static 'vancrime/js/status.js' %}"></script>
+    <script type="text/javascript" src="{% static 'vancrime/js/templates.js' %}"></script>
+    <script type="text/javascript" src="{% static 'vancrime/js/modules/map.js' %}"></script>
+    <script type="text/javascript" src="{% static 'vancrime/js/modules/status.js' %}"></script>
+    <script type="text/javascript" src="{% static 'vancrime/js/modules/favourite-locations.js' %}"></script>
+
     <script type="text/javascript" src="{% static 'vancrime/js/main.js' %}"></script>
+
 </body>
 </html>

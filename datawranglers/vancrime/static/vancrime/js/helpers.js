@@ -65,35 +65,37 @@ function renderTweetButton (crime) {
         hashtags: "VanCrime"
     }
     
-    var href = "https://twitter.com/intent/tweet?" + $.param(urlParams);
+    var url = "https://twitter.com/intent/tweet?" + $.param(urlParams);
     
-    html = "".concat(
-        "<a class='tooltip-button' target='popup' onclick=\"window.open('" + href + "','name','width=600,height=443')\" >",
-        "<div class='tweet-button'><div class='tweet-icon'></div>Tweet</div>",
-        "</a>"
-    );
-    
-    return html;
+    return templates.tweetButton({
+        url: url
+    });
 }
 
 function renderFavButton (location, title) {
-    // TODO: should only show fav button if user is logged in
+    if (!is_authenticated) {
+        return "";
+    }
+
     title = title || "";
-    var dataFields = "data-title='" + title + "'" +  "' data-lat='" + location.latitude + "' data-lng='" + location.longitude + "'";
-    return "<div " + dataFields + " class='tooltip-button fav-button'><div class='fav-icon'></div>Save Location</div>";
+
+    return templates.favButton({
+        title: title,
+        lat: location.lat,
+        lng: location.lng
+    });
 }
 
-function renderCrimeTooltip (crime) {
-    html = "".concat(
-        "<div class='marker-tooltip'>",
-        "<p><b>Crime:</b> " + crime.crime_type + "</p>",
-        "<p><b>Date:</b> " + intMonthToString(crime.month) + ", " + crime.year + "</p>",
-        "<p><b>Address:</b> " + titleCase(crime.location.address).replace("xx", "00 Block") + "</p>",
-        "<div class='tooltip-actions'>",
-        renderTweetButton(crime),
-        renderFavButton(crime.location, crime.location.address),
-        "</div>",
-        "</div>"
-    );
-    return html;
+function renderCrimeTooltip (crime) {    
+    var month = intMonthToString(crime.month);
+    var address = titleCase(crime.location.address).replace("xx", "00 Block");
+    
+    return templates.crimeTooltip({
+        crime_type: crime.crime_type,
+        month: month,
+        year: crime.year,
+        address: address,
+        tweetButton: renderTweetButton(crime),
+        favButton: renderFavButton({lat: crime.location.latitude, lng: crime.location.longitude}, crime.location.address)
+    });
 }

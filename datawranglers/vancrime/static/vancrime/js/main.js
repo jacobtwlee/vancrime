@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    mapManager.initMap();
+    mapManager.init();
+    favouritesManager.init();
     
     $('#filter-crime-type').val("all")
     $('#filter-crime-year').val(default_year)
@@ -16,19 +17,9 @@ $(document).ready(function () {
         mapManager.setLocationAndZoom(location, 18);
     }
     
-    $('#map').delegate(".fav-button", "click", addFavLocation);    
-    mapManager.onMapClick(handleMapClick);
     $('#filter-button').click(updateResults);
     $('#graph-button').click(showSummaryGraph);
     $('.graph-bg').click(hideSummaryGraph);
-    
-    $('.toggle-favs').click(function () {
-        if ($('.favs-list').hasClass("open")) {
-            $('.favs-list').removeClass("open");
-        } else {
-            $('.favs-list').addClass("open");
-        }
-    });
     
     $('#toggle-markers').click(function () {
         var $this = $(this);
@@ -67,11 +58,6 @@ function showLoadingOverlay () {
 
 function hideLoadingOverlay () {
     $loadingOverlay.fadeOut(300);
-}
-
-function handleMapClick (event) {
-    var location = event.latLng;
-    mapManager.displayTooltip(location, renderFavButton(location));
 }
 
 function handleError (message) {
@@ -194,20 +180,4 @@ function updateSummaryTable () {
             handleError("Error generating summary table")
         }
     });
-}
-
-function addFavLocation () {
-    var title = $(this).attr('data-title');
-    var latitude = parseFloat($(this).attr('data-lat'));
-    var latitude = parseFloat($(this).attr('data-lng'));
-    
-    var name = "";
-    
-    while (name.length === 0) {
-        name = prompt("Enter a name for this location:", title);
-        if (name === null) return;
-    }
-    
-    // TODO: sanitize name   
-    // TODO: make ajax request to save location
 }

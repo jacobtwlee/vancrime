@@ -13,6 +13,13 @@ var mapManager  = {
         mapTypeControl: false
     },
     
+    init: function () {
+        this.initMap();
+        
+        // bind map click handler
+        this.map.addListener('click', this.handleMapClick.bind(this));
+    },
+    
     // Initialize the map centred on Vancouver
     initMap: function () {
         this.positions = new google.maps.MVCArray([]);
@@ -104,8 +111,13 @@ var mapManager  = {
         this.infoWindow.open(this.map);
     },
     
-    // Add a click handler to the map
-    onMapClick: function (handler) {
-        this.map.addListener('click', handler);
+    // Handle map click
+    handleMapClick: function (event) {
+        var location = {
+            lat: event.latLng.lat(),
+            lng: event.latLng.lng()
+        };
+        
+        this.displayTooltip(location, renderFavButton(location));
     }
 };

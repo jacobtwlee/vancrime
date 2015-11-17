@@ -67,9 +67,11 @@ html, body {
     border-bottom: 4px solid #A3BCE2;
     border-top: 2px solid #eee;
     overflow-y: scroll;
+    overflow-x: hidden;
     height: 0;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
+    max-width: 350px;
 }
 
 .favs-list.open {
@@ -97,6 +99,47 @@ html, body {
 
 .toggle-favs:hover {
     background-color: #B2C6E6;
+}
+
+.fav-location {
+    transition: background-color 0.2s;
+    color: #555;
+    position: relative;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #eee;
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+.fav-location:hover {
+    background-color: #eee;
+}
+
+.delete-fav-button {
+    transition: right 0.2s, background-color 0.2s;
+    color: #f4f4f4;
+    position: absolute;
+    width: 50px;
+    text-align: center;
+    right: -50px;
+    top: 0;
+    font-weight: 700;
+    background-color: #A3BCE2;
+}
+
+.delete-fav-button:hover {
+    background-color: #E23535;
+}
+
+.fav-location:hover > .delete-fav-button {
+    right: 0;
+}
+
+.fav-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #graph-overlay {
@@ -188,6 +231,7 @@ html, body {
 }
 
 .menu-button, .menu-toggle-button {
+    transition: background-color 0.2s;
     margin: 5px auto;
     width: 100%;
     box-sizing: border-box;
@@ -262,6 +306,7 @@ html, body {
 }
 
 select.filter-menu {
+    transition: background-color 0.2s, border-left-color 0.2s;
     cursor: pointer;
     display: block;
     width: 100%;
@@ -281,6 +326,7 @@ select.filter-menu {
 }
 
 select.filter-menu:hover {
+    border-left-color: #B2C6E6;
     background-color: white;
 }
 
