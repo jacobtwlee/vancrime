@@ -34,10 +34,13 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
     
 class FavoriteViewSet(viewsets.ViewSet):
+    """
+    API endpoint that allows favorites to be viewed, added, or deleted.
+    """
     def list(self, request):
         queryset = Favorite.objects.filter(user=self.request.user)
         serializer = FavoriteSerializer(queryset, many=True)
-        return Response(serializer.data)
+        return Response({"results": serializer.data})
 
     def create(self, request):
         try:
@@ -45,16 +48,16 @@ class FavoriteViewSet(viewsets.ViewSet):
             Favorite(user=self.request.user,name=data['name'],latitude=data['latitude'],longitude=data['longitude']).save()
             return Response({"success": True})
         except IntegrityError:
-            return Response({"success": False, "message": "a favorite with that name already exists"})
+            return Response({"success": False, "message": "A favorite with that name already exists"})
         except:
-            return Response({"success": False, "message": "an error occurred adding the favorite"})
+            return Response({"success": False, "message": "Error adding favorite"})
 
     def destroy(self, request, pk=None):
         try:
             Favorite.objects.get(user=self.request.user,name=pk).delete()
             return Response({"success": True})
         except:
-            return Response({"success": False, "message": "an error occurred deleting the favorite"})
+            return Response({"success": False, "message": "Error deleting favorite"})
             
     def retrieve(self, request, pk=None):
         pass
