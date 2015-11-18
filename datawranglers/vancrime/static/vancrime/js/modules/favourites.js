@@ -50,7 +50,7 @@ var favoritesManager = {
             var self = this;
             var $el = $(event.currentTarget);
             
-            var title = $el.attr('data-title');
+            var title = $el.attr('data-title').replace("/", "AND");
             var latitude = parseFloat($el.attr('data-lat'));
             var longitude = parseFloat($el.attr('data-lng'));
             
@@ -58,8 +58,14 @@ var favoritesManager = {
             
             // prompt for location name until a valid name is submitted
             while (name.length === 0) {
-                name = prompt("Enter a name for this location:", title);
+                name = prompt("Enter a name for this location.\nOnly letters, numbers, and spaces allowed.", title);
                 if (name === null) return;
+            }
+            
+            var wordCharsRegexp = /^[\w\-\ ]+$/
+            if (!wordCharsRegexp.test(name)) {
+                statusManager.error("Name contains invalid characters");
+                return;
             }
             
             $.ajax({
@@ -94,7 +100,7 @@ var favoritesManager = {
             var name = $el.find('.fav-name').text();
 
             $.ajax({
-                url: "/api/favorites/" + name,
+                url: "/api/favorites/" + encodeURIComponent(name),
                 method: "DELETE",
                 headers: {
                     "X-CSRFToken": getCookie('csrftoken')
