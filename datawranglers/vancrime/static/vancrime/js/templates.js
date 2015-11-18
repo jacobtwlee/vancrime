@@ -1,5 +1,5 @@
 var templates = {
-    favouriteLocation: _.template("".concat(
+    favoriteLocation: _.template("".concat(
         "<div class='fav-location' data-lat='<%- lat %>' data-lng='<%- lng %>'>",
             "<div class='fav-name'><%- name %></div>",
             "<div class='delete-fav-button' title='delete saved location'>✕</div>",

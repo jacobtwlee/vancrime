@@ -1,4 +1,4 @@
-var favouritesManager = {
+var favoritesManager = {
         $map: $('#map'),
         $favsList: $('.favs-list'),
         $toggleFavs: $('.toggle-favs'),
@@ -6,14 +6,14 @@ var favouritesManager = {
         init: function () {
             var self = this;
             
-            // delegate click events for adding and deleting favourite locations
-            this.$map.delegate(".fav-button", "click", this.addFavouriteLocation.bind(this)); 
-            this.$favsList.delegate(".delete-fav-button", "click", this.deleteFavouriteLocation.bind(this));
+            // delegate click events for adding and deleting favorite locations
+            this.$map.delegate(".fav-button", "click", this.addfavoriteLocation.bind(this)); 
+            this.$favsList.delegate(".delete-fav-button", "click", this.deletefavoriteLocation.bind(this));
             
-            // bind handler for clicking a favourite location
-            this.$favsList.delegate(".fav-location", "click", this.openFavouriteLocation.bind(this));
+            // bind handler for clicking a favorite location
+            this.$favsList.delegate(".fav-location", "click", this.openfavoriteLocation.bind(this));
             
-            // bind handler for opening/closing favourite loations list
+            // bind handler for opening/closing favorite loations list
             this.$toggleFavs.click(function () {
                 if (self.$favsList.hasClass("open")) {
                     self.$favsList.removeClass("open");
@@ -23,7 +23,7 @@ var favouritesManager = {
             });
         },
     
-        addFavouriteLocation: function (event) {
+        addfavoriteLocation: function (event) {
             var $el = $(event.currentTarget);
             
             var title = $el.attr('data-title');
@@ -38,7 +38,7 @@ var favouritesManager = {
                 if (name === null) return;
             }
             
-            var template = templates.favouriteLocation({
+            var template = templates.favoriteLocation({
                 name: name,
                 lat: latitude,
                 lng: longitude
@@ -67,7 +67,7 @@ var favouritesManager = {
             */
         },
         
-        deleteFavouriteLocation: function (event) {
+        deletefavoriteLocation: function (event) {
             event.stopPropagation();
             var $el = $(event.currentTarget).parent();
 
@@ -91,7 +91,7 @@ var favouritesManager = {
             */
         },
         
-        openFavouriteLocation: function (event) {
+        openfavoriteLocation: function (event) {
             var $el = $(event.currentTarget);
             
             var location = {
