@@ -49,14 +49,32 @@ html, body {
 }
 
 .login-header {
+    padding-top: 10px;
     color: #555;
     width: 350px;
-    height: 45px;
+    height: 55px;
     line-height: 50px;
     text-align: center;
     background-color: #f4f4f4;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
+}
+
+.login-button {
+    display: inline-block;
+    background-color: #A3BCE2;
+    text-align: center;
+    padding-right: 10px;
+    padding-left: 10px;
+    cursor: pointer;
+    border: 5px;
+    border-radius: 3px;
+    color: #f4f4f4;
+    transition: background-color 0.2s;
+}
+
+.login-button:hover{
+    background-color: #B3CAEC;
 }
 
 .favs-list {
@@ -229,6 +247,7 @@ html, body {
 .menu-filter, .menu-summary {
     width: 100%;
 }
+
 
 .menu-button, .menu-toggle-button {
     transition: background-color 0.2s;
