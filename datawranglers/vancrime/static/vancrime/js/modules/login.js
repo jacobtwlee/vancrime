@@ -19,7 +19,7 @@ var loginManager = {
 
     },
     doreq: function() {
-	var name = "john";
+	var name = "johnd";
 	var password = "johnpassword";
 
 	$.ajax({
@@ -35,6 +35,7 @@ var loginManager = {
             success: function (response) {
 		if (response.success) {
                     statusManager.success("Ajax login succeeded!", 1500)
+		    location.href = "/"
 		} else {
                     statusManager.error(response.message || "Error logging in", 2000)
 		}

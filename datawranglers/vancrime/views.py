@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import logout
 from .models import Crime
 # from .forms import CrimeForm
@@ -26,7 +26,7 @@ def login_view(request):
     if user.is_active:
         login(request,user)
         # TODO: Redirect to root with success message
-        return HttpResponseRedirect('/')
+        return JsonResponse({"success": True})
     else:
         # TODO: Redirect to root with failure message
         return HttpResponseRedirect('/')
