@@ -50,6 +50,7 @@ html, body {
 
 .login-header {
     padding-top: 10px;
+    transition: height 1s ease;
     color: #555;
     width: 350px;
     height: 55px;
@@ -58,6 +59,10 @@ html, body {
     background-color: #f4f4f4;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
+}
+
+.login-header.open{
+    height: 400px;
 }
 
 .login-button {

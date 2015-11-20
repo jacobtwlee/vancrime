@@ -1,6 +1,7 @@
 $(document).ready(function () {
     mapManager.init();
     favoritesManager.init();
+    loginManager.init();
     
     $('#filter-crime-type').val("all")
     $('#filter-crime-year').val(default_year)
