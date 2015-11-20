@@ -9,8 +9,28 @@ from bokeh.resources import CDN
 from math import pi 
 import calendar
 import re
+# for authentication
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
+
+def login_view(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+
+    if user == None:
+        # TODO: return error message
+        return HttpResponseRedirect('/')
+    
+    if user.is_active:
+        login(request,user)
+        # TODO: Redirect to root with success message
+        return HttpResponseRedirect('/')
+    else:
+        # TODO: Redirect to root with failure message
+        return HttpResponseRedirect('/')
+        
 
 def index(request):
     crimes = Crime.objects.all()
