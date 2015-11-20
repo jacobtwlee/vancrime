@@ -1,6 +1,11 @@
 var templates = {
     loginForm: _.template("".concat(
-	// STUB: login form will go here
+	'<form action="{% url "login" %}" method="post">',
+	'{% csrf_token %}',
+	'<input type="text" type="required" name="username" id="username" value="Username" />',
+	'<input type="password" type="required" name="password" id="username" value="Password" />',
+	'<input type="submit" type="required" value="Log Me In" />',
+	'</form>'
     )),
 
     favoriteLocation: _.template("".concat(
