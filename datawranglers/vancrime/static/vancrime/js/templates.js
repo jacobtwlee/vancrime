@@ -1,4 +1,8 @@
 var templates = {
+    loginForm: _.template("".concat(
+	// STUB: login form will go here
+    )),
+
     favoriteLocation: _.template("".concat(
         "<div class='fav-location' data-lat='<%- lat %>' data-lng='<%- lng %>'>",
             "<div class='fav-name'><%- name %></div>",
