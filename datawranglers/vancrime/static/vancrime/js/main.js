@@ -2,6 +2,8 @@ $(document).ready(function () {
     mapManager.init();
     favoritesManager.init();
     loginManager.init();
+
+    handleErrorMessages();
     
     $('#filter-crime-type').val("all")
     $('#filter-crime-year').val(default_year)
@@ -24,17 +26,6 @@ $(document).ready(function () {
     $('.register-bg').click(hideRegisterPane);
 
     $('#register-button').click(showRegisterPane);
-
-    // TODO: not needed? remove
-    // this.$toggleRegister.click(function () {
-    //     if (self.$toggleRegister.hasClass("clicked")) {
-    //         self.$toggleRegister.removeClass("clicked");
-    // 	    statusManager.success("toggled register",500);
-    //     } else {
-    //         self.$toggleRegister.addClass("clicked");
-    // 	    statusManager.success("toggled register",500);
-    //     }
-    // });
     
     $('#toggle-markers').click(function () {
         var $this = $(this);
@@ -195,19 +186,52 @@ function updateSummaryTable () {
             handleError("Error generating summary table")
         }
     });
-
-
-	
-	
 }
 
+function handleErrorMessages() {
+    /* Credit for this one function goes to:
+       http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+       */
+    var urlParams;
+    (window.onpopstate = function () {
+	var match,
+	    pl     = /\+/g,  // Regex for replacing addition symbol with a space
+	    search = /([^&=]+)=?([^&]*)/g,
+	    decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+	    query  = window.location.search.substring(1);
+
+	urlParams = {};
+	while (match = search.exec(query))
+	    urlParams[decode(match[1])] = decode(match[2]);
+    })();
+
+    var code = "";
+    if ( urlParams["error"] != null ) {
+	statusManager.error( expandMsg( code ) );
+    } else if ( urlParams["msg"] != null ) {
+	statusManager.info( expandMsg( urlParams["msg"] ) );
+    }
+
+}
+
+function expandMsg( msg ) {
+    if (msg == 'baduser') {
+	return 'User name already in use';
+    } else if (msg == 'regpass') {
+	return 'Thanks for registering!';
+    } else if (msg == 'badlogin') {
+	return 'Unrecognized username or login. Please try again.';
+    } else if (msg == 'welcome') {
+	return 'Welcome back!';
+    }
+    return "An unexpected error occurred. Please try again.";
+}
+
+/* Use for overlay register pane
 function showRegisterPane() {
-    $('#register-overlay').fadeIn(300);
-    
-    
-    
+    $('#register-overlay').fadeIn(300);    
 }
 
 function hideRegisterPane() {
     $('#register-overlay').fadeOut(300);
-}
+} */

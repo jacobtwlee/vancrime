@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import logout
-from .models import Crime
+from .models import Crime, Favorite
 # from .forms import CrimeForm
 from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components
@@ -23,11 +23,13 @@ def register_view(request):
     email = None
     # validate that the username is free
     if User.objects.filter(username = username).exists():
-        return HttpResponseRedirect('/?error=usernameexists')
+        return HttpResponseRedirect('/?error=baduser')
     else:
         user = User.objects.create_user(username,email,password)
         user.save()
-        return HttpResponseRedirect('/')
+        auth_user = authenticate(username=username, password=password)
+        login(request,auth_user)
+        return HttpResponseRedirect('/?msg=regpass')
 
 def login_view(request):
     username = request.POST['username']
@@ -35,14 +37,12 @@ def login_view(request):
     user = authenticate(username=username, password=password)
 
     if user == None:
-        # TODO: process error message
-        return HttpResponseRedirect('/?error=badlogin')
+        return HttpResponseRedirect('/?error=badlog')
     
     if user.is_active:
         login(request,user)
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/?msg=welcome')
     else:
-        # TODO: process failure message
         return HttpResponseRedirect('/?error=login')
         
 
