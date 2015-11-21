@@ -24,8 +24,6 @@ var favoritesManager = {
             
             // populate favorite locations list with favorite locations (if the user is logged in)
             if (is_authenticated) {
-		// TODO: remove debugging printout
-		statusManager.success("Accessed favorite locations",500);
                 this.fetchFavoriteLocations();
             }
         },
