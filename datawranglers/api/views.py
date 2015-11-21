@@ -37,6 +37,8 @@ class FavoriteViewSet(viewsets.ViewSet):
     """
     API endpoint that allows favorites to be viewed, added, or deleted.
     """
+    permission_classes = [ permissions.AllowAny ]
+    
     def list(self, request):
         queryset = Favorite.objects.filter(user=self.request.user)
         serializer = FavoriteSerializer(queryset, many=True)
