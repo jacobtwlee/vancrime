@@ -12,7 +12,9 @@
 
 {% if user.is_authenticated %}
 <div class="toggle-favs"></div>
-<div class="favs-list"></div>
+<div class="favs-list">
+  <div class="no-favs">You don't have any saved locations</div>
+</div>
 {% else %}
 <div class="toggle-login"></div>
 <div class="login-register-container">
@@ -35,18 +37,4 @@
         </form>
     </div>
 </div>
-<!-- TODO: remove
-<div class="login-form">
-  <form action="{% url 'login' %}" method="post">
-    {% csrf_token %}
-    <div class="form-field"></div>
-    <div class="form-field"><input type="text" type="required" name="username" id="username" value="Username" /></div>
-    <div class="form-field"><input type="password" type="required" name="password" id="username" value="Password" /></div>
-    <div class="form-field"><input type="submit" type="required" value="Log Me In" /></dov
-  </form>
-</div>-->
 {% endif %}
-
-<div class="favs-list">
-    <div class="no-favs">You don't have any saved locations</div>
-</div>
