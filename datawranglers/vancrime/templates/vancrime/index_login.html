@@ -6,18 +6,24 @@
         <a href="/logout"><div class="logout-button user-button" title="logout"></div></a>
     </div>
     {% else %}
-    <div id="login-marker" class="login-button">Login / Register</div>
-<!--    <form action="{% url 'login' %}" method="post">
-      {% csrf_token %}
-      <input type="text" type="required" name="username" id="username" value="Username" />
-      <input type="password" type="required" name="password" id="username" value="Password" />
-      <input type="submit" type="required" value="Log Me In" />
-      </form> -->
+     <div class="login-header-buttons" id="login-container">
+      <div id="login-button" class="login-button">Login</div>
+      <div id="register-button" class="register-button">Register</div>
+    </div>
     {% endif %}
 </div>
 
 {% if user.is_authenticated %}
 <div class="toggle-favs"></div>
+{% else %}
+<div class="login-form">
+  <form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <div class="form-field"></div>
+    <div class="form-field"><input type="text" type="required" name="username" id="username" value="Username" /></div>
+    <div class="form-field"><input type="password" type="required" name="password" id="username" value="Password" /></div>
+    <div class="form-field"><input type="submit" type="required" value="Log Me In" /></div>
+  </form>
+</div>
 {% endif %}
-
 <div class="favs-list"></div>
