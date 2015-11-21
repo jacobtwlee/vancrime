@@ -26,8 +26,13 @@
         </form>
     </div>
     <div class="register-form">
-        <div class="register-title">-- Register --</div>
-        Register form goes here.
+      <div class="register-title">-- Register --</div>
+       <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <div class="form-field"><input type="text" name="username" placeholder="Enter a username here" required></div>
+            <div class="form-field"><input type="password" name="password" placeholder="Enter a password here" required></div>
+            <button class="menu-button" type="submit">Register</button> 
+        </form>
     </div>
 </div>
 <!-- TODO: remove

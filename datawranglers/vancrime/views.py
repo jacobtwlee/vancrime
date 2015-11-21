@@ -10,11 +10,24 @@ from math import pi
 import calendar
 import re
 # for authentication
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.core.context_processors import csrf
 
 # Create your views here.
+
+def register_view(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    email = None
+    # validate that the username is free
+    if User.objects.filter(username = username).exists():
+        return HttpResponseRedirect('/?error=usernameexists')
+    else:
+        user = User.objects.create_user(username,email,password)
+        user.save()
+        return HttpResponseRedirect('/')
 
 def login_view(request):
     username = request.POST['username']
