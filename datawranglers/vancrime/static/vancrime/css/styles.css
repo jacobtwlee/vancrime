@@ -48,38 +48,94 @@ html, body {
     -webkit-filter: drop-shadow(0 0 2px #A3BCE2);
 }
 
+#login-button {
+    background-color: #A3BCE2;
+    color: #f4f4f4;
+    width:30%;
+    position: absolute;
+    z-index: 10;
+    top: 5px;
+    left: 60px;
+    -webkit-filter: drop-shadow(0 0 2px #A3BCE2);
+}
+
+#register-button {
+    background-color: #A3BCE2;
+    color: #f4f4f4;
+    width:30%;
+    position: absolute;
+    z-index: 10;
+    top: 5px;
+    right: 60px;
+    -webkit-filter: drop-shadow(0 0 2px #A3BCE2);
+}
+
+#register-button.clicked {
+}
+
+#login-button:hover{
+    background-color: #B3CAEC;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+#register-button:hover{
+    background-color: #B3CAEC;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
 .login-header {
-    padding-top: 10px;
-    transition: height 1s ease;
     color: #555;
     width: 350px;
     height: 55px;
-    line-height: 50px;
+    line-height: 40px;
     text-align: center;
     background-color: #f4f4f4;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
+    overflow: hidden;
+}
+
+.login-header-buttons {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 90%;
+    height: 90%;
 }
 
 .login-header.open{
     height: 400px;
 }
 
-.login-button {
-    display: inline-block;
-    background-color: #A3BCE2;
+.login-form {
+    height: 0;
     text-align: center;
-    padding-right: 10px;
-    padding-left: 10px;
-    cursor: pointer;
-    border: 5px;
-    border-radius: 3px;
-    color: #f4f4f4;
-    transition: background-color 0.2s;
+    margin: auto;
+    width: 100%;
+    transition: height 1s ease;
+    background-color: #f4f4f4;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    overflow:hidden;
+    max-width: 350px;
 }
 
-.login-button:hover{
-    background-color: #B3CAEC;
+.form-field {
+    height:50px;
+    margin: auto;
+    text-align:center;
+    font: 18px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    width: 240px;
+    z-index:20;
+}
+
+.login-form.open {
+    height: 200px;
 }
 
 .favs-list {

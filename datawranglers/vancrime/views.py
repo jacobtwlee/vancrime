@@ -21,7 +21,7 @@ def login_view(request):
 
     if user == None:
         # TODO: return error message
-        return HttpResponseRedirect('/')
+        return JsonResponse({"success": False})
     
     if user.is_active:
         login(request,user)
@@ -29,7 +29,7 @@ def login_view(request):
         return JsonResponse({"success": True})
     else:
         # TODO: Redirect to root with failure message
-        return HttpResponseRedirect('/')
+        return JsonResponse({"success": False})
         
 
 def index(request):
