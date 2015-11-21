@@ -10,24 +10,23 @@ from vancrime.models import LoadedData
 from api.views import FetchDataView
 
 class FetchDataViewTests(TestCase):
+    def setUp(self):
+        # create an admin user to run the tests
+        User.objects.create_superuser('test', '', 'test')
+        self.client = Client()
+        self.client.login(username="test",password="test")
+        
+        # mock data
+        self.TEST_DATA_URL_2015 = "http://vancrime.me/static/vancrime/testdata/crime_2015.csv"
+        self.TEST_DATA_URL_2014 = "http://vancrime.me/static/vancrime/testdata/crime_2014.csv"
+        FetchDataView.REMOTE_DATA_URLS = {2015: self.TEST_DATA_URL_2015, 2014: self.TEST_DATA_URL_2014}
+    
     def test_post(self):
         """
         Tests fetching and parsing data into the database
-        """
-        
-        TEST_DATA_URL_2015 = "http://vancrime.me/static/vancrime/testdata/crime_2015.csv"
-        TEST_DATA_URL_2014 = "http://vancrime.me/static/vancrime/testdata/crime_2014.csv"
-        
-        FetchDataView.REMOTE_DATA_URLS = {2015: TEST_DATA_URL_2015, 2014: TEST_DATA_URL_2014}
-        
-        # Create an admin user to run the tests
-        User.objects.create_superuser('test', '', 'test')
-        
-        client = Client()
-        client.login(username="test",password="test")
-                
-        response = client.post('/ajax/fetch-data', data=json.dumps({'years': [2015,2014]}), content_type='application/json')
-
+        """    
+        response = self.client.post('/ajax/fetch-data', data=json.dumps({'years': [2015,2014]}), content_type='application/json')
+    
         self.assertEqual(response.status_code, 200)
         # self.assertJSONEqual(str(response.content, encoding='utf8'), {'success': True, 'newData': [TEST_DATA_URL_2014, TEST_DATA_URL_2015]})
         
@@ -67,10 +66,27 @@ class FetchDataViewTests(TestCase):
         Verify loaded data entries updated
         """
         loaded_data = LoadedData.objects
-        loaded_data_2015 = loaded_data.filter(url=TEST_DATA_URL_2015)
-        loaded_data_2014 = loaded_data.filter(url=TEST_DATA_URL_2014)
+        loaded_data_2015 = loaded_data.filter(url=self.TEST_DATA_URL_2015)
+        loaded_data_2014 = loaded_data.filter(url=self.TEST_DATA_URL_2014)
         
         # assert loaded data updated with proper value
         self.assertEqual(loaded_data_2015.count(), 1)
         self.assertEqual(loaded_data_2014.count(), 1)
-
+    
+    def test_delete(self):        
+        # first add some data to the database
+        response = self.client.post('/ajax/fetch-data', data=json.dumps({'years': [2015,2014]}), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        
+        # make sure data was added
+        self.assertEqual(Crime.objects.all().count(), 6)
+        self.assertEqual(Location.objects.all().count(), 3)
+        self.assertEqual(LoadedData.objects.all().count(), 2)
+        
+        # delete the data
+        response = self.client.delete('/ajax/fetch-data', data=json.dumps({'years': [2015,2014]}), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        
+        self.assertEqual(Crime.objects.all().count(), 0)
+        self.assertEqual(Location.objects.all().count(), 3) # locations are not deleted
+        self.assertEqual(LoadedData.objects.all().count(), 0)
