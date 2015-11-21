@@ -1,6 +1,6 @@
 var loginManager = {
-    $toggleLogin: $('.login-button'),
-    $toggleRegister: $('.register-button'),
+    $toggleLogin: $('#login-button'),
+    //$toggleRegister: $('#register-button'),
     $loginForm: $('.login-form'),
     $loginFormOpen: $('.login-form.open'),
 
@@ -8,15 +8,17 @@ var loginManager = {
 	var self = this;
 	var temp = templates.loginForm();
 
-	this.$toggleRegister.click(function () {
-            if (self.$toggleRegister.hasClass("clicked")) {
-                self.$toggleRegister.removeClass("clicked");
-		statusManager.success("toggled register",500);
-            } else {
-                self.$toggleRegister.addClass("clicked");
-		statusManager.success("toggled register",500);
-            }
-        });
+	// TODO: remove, moved to main.js
+	
+	// this.$toggleRegister.click(function () {
+        //     if (self.$toggleRegister.hasClass("clicked")) {
+        //         self.$toggleRegister.removeClass("clicked");
+	// 	statusManager.success("toggled register",500);
+        //     } else {
+        //         self.$toggleRegister.addClass("clicked");
+	// 	statusManager.success("toggled register",500);
+        //     }
+        // });
 	
     	this.$toggleLogin.click(function () {
             if (self.$loginForm.hasClass("open")) {

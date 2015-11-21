@@ -21,6 +21,20 @@ $(document).ready(function () {
     $('#filter-button').click(updateResults);
     $('#graph-button').click(showSummaryGraph);
     $('.graph-bg').click(hideSummaryGraph);
+    $('.register-bg').click(hideRegisterPane);
+
+    $('#register-button').click(showRegisterPane);
+
+    // TODO: not needed? remove
+    // this.$toggleRegister.click(function () {
+    //     if (self.$toggleRegister.hasClass("clicked")) {
+    //         self.$toggleRegister.removeClass("clicked");
+    // 	    statusManager.success("toggled register",500);
+    //     } else {
+    //         self.$toggleRegister.addClass("clicked");
+    // 	    statusManager.success("toggled register",500);
+    //     }
+    // });
     
     $('#toggle-markers').click(function () {
         var $this = $(this);
@@ -181,4 +195,17 @@ function updateSummaryTable () {
             handleError("Error generating summary table")
         }
     });
+
+
+	
+	
+}
+
+function showRegisterPane() {
+    $('#register-overlay').fadeIn(300);
+    
+}
+
+function hideRegisterPane() {
+    $('#register-overlay').fadeOut(300);
 }
