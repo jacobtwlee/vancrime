@@ -204,6 +204,8 @@ function updateSummaryTable () {
 function showRegisterPane() {
     $('#register-overlay').fadeIn(300);
     
+    
+    
 }
 
 function hideRegisterPane() {

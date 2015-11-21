@@ -59,6 +59,75 @@ html, body {
     border-top-right-radius: 3px;
 }
 
+/* TODO: remove
+.login-header-buttons {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 90%;
+    height: 90%;
+} 
+
+.login-header.open{
+    height: 400px;
+}*/
+
+.login-form input, .register-form input {
+    font-size: 14px;
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-left: 2px solid #A3BCE2;
+    border-radius: 3px;
+    height: 35px;
+    box-sizing: border-box;
+}
+
+
+.login-form button, .register-form button {
+    margin:0;
+    font-size: 14px;
+    border: none;
+}
+
+.login-title, .register-title {
+    color: #aaa;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.login-form, .register-form {
+    padding: 10px;
+/*    height: 0;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    transition: height 1s ease;
+    background-color: #f4f4f4;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    overflow:hidden;
+    max-width: 350px;*/
+}
+
+.form-field {
+    height:50px;
+    margin: auto;
+    text-align:center;
+    font: 18px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    width: 240px;
+    z-index:20;
+}
+
+.login-form.open {
+    height: 200px;
+}
+
 .favs-list, .login-register-container {
     margin: auto;
     width: 100%;
@@ -78,19 +147,16 @@ html, body {
     overflow-y: hidden;
 }
 
-.favs-list.open {
-    height: 400px;
-}
-
 .login-register-container.open {
     height:250px;
 }
 
-.toggle-favs {
-    background-image: url('/static/vancrime/images/fav-icon.png');    
+.favs-list.open {
+    height: 400px;
 }
 
-.toggle-favs, .toggle-login {
+.toggle-favs {
+    background-image: url('/static/vancrime/images/fav-icon.png');
     background-repeat: no-repeat;
     background-position: center;
     position: absolute;
@@ -104,11 +170,11 @@ html, body {
     cursor: pointer;
 }
 
-.toggle-favs:hover + .favs-list, .toggle-login:hover + .login-register-container {
+.toggle-favs:hover + .favs-list {
     border-bottom: 4px solid #B2C6E6;
 }
 
-.toggle-favs:hover, .toggle-login:hover {
+.toggle-favs:hover {
     background-color: #B2C6E6;
 }
 
@@ -151,18 +217,6 @@ html, body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-.no-favs {
-    display: none;
-}
-
-.no-favs:only-child {
-    display: block;
-    color: #aaa;
-    width: 100%;
-    text-align: center;
-    padding: 10px;
 }
 
 #graph-overlay {
@@ -252,6 +306,7 @@ html, body {
 .menu-filter, .menu-summary {
     width: 100%;
 }
+
 
 .menu-button, .menu-toggle-button {
     transition: background-color 0.2s;
@@ -448,36 +503,6 @@ hr {
     }
 }
 
-.login-title, .register-title {
-    color: #aaa;
-    width: 100%;
-    text-align: center;
-    padding-bottom: 5px;
-}
-
-.login-form, .register-form {
-    padding: 10px;
-}
-
-.login-form input, .register-form input {
-    font-size: 14px;
-    margin-bottom: 5px;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #eee;
-    border-left: 2px solid #A3BCE2;
-    border-radius: 3px;
-    height: 35px;
-    box-sizing: border-box;
-}
-
-.login-form button, .register-form button {
-    margin:0;
-    font-size: 14px;
-    border: none;
-}
-
-/* TODO: remove
 #register-overlay {
     display: none;
     position: absolute;
@@ -506,4 +531,41 @@ hr {
     height: 100%;
     background-color: black;
     opacity: 0.5;
-}*/
+}
+
+#register-button {
+    background-color: #A3BCE2;
+    color: #f4f4f4;
+    width:30%;
+    position: absolute;
+    z-index: 10;
+    top: 5px;
+    right: 60px;
+    -webkit-filter: drop-shadow(0 0 2px #A3BCE2);
+}
+
+#register-button.clicked {
+}
+
+#register-button:hover{
+    background-color: #B3CAEC;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+#login-button {
+    background-color: #A3BCE2;
+    color: #f4f4f4;
+    width:30%;
+    position: absolute;
+    z-index: 10;
+    top: 5px;
+    left: 60px;
+    -webkit-filter: drop-shadow(0 0 2px #A3BCE2);
+}
+
+#login-button:hover{
+    background-color: #B3CAEC;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}

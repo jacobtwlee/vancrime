@@ -1,12 +1,12 @@
 var loginManager = {
-    $toggleLogin: $('#login-button'),
+    $toggleLogin: $('.toggle-login'),
     //$toggleRegister: $('#register-button'),
-    $loginForm: $('.login-form'),
-    $loginFormOpen: $('.login-form.open'),
+    $loginForm: $('.login-register-container'),
+    //$loginFormOpen: $('.login-form.open'),
 
     init: function() {
 	var self = this;
-	var temp = templates.loginForm();
+	//var temp = templates.loginForm();
 
 	// TODO: remove, moved to main.js
 	
@@ -23,10 +23,8 @@ var loginManager = {
     	this.$toggleLogin.click(function () {
             if (self.$loginForm.hasClass("open")) {
                 self.$loginForm.removeClass("open");
-		self.$toggleLogin.text("Login");
             } else {
                 self.$loginForm.addClass("open");
-		self.$toggleLogin.text("Cancel");
             }
         });
 

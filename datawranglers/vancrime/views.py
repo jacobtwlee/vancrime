@@ -11,6 +11,8 @@ import calendar
 import re
 # for authentication
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django.core.context_processors import csrf
 
 # Create your views here.
 
@@ -20,19 +22,18 @@ def login_view(request):
     user = authenticate(username=username, password=password)
 
     if user == None:
-        # TODO: return error message
-        return JsonResponse({"success": False})
+        # TODO: process error message
+        return HttpResponseRedirect('/?error=badlogin')
     
     if user.is_active:
         login(request,user)
-        # TODO: Redirect to root with success message
-        return JsonResponse({"success": True})
+        return HttpResponseRedirect('/')
     else:
-        # TODO: Redirect to root with failure message
-        return JsonResponse({"success": False})
+        # TODO: process failure message
+        return HttpResponseRedirect('/?error=login')
         
 
-def index(request):
+def index(request, error=None):
     crimes = Crime.objects.all()
     
     latestYear = crimes.order_by("-year")[0].year
