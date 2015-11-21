@@ -23,9 +23,9 @@ $(document).ready(function () {
     $('#filter-button').click(updateResults);
     $('#graph-button').click(showSummaryGraph);
     $('.graph-bg').click(hideSummaryGraph);
+    /* Kept in case we refactor to use an overlay register pane
     $('.register-bg').click(hideRegisterPane);
-
-    $('#register-button').click(showRegisterPane);
+    $('#register-button').click(showRegisterPane);*/
     
     $('#toggle-markers').click(function () {
         var $this = $(this);
@@ -227,7 +227,7 @@ function expandMsg( msg ) {
     return "An unexpected error occurred. Please try again.";
 }
 
-/* Use for overlay register pane
+/* Kept in case we refactor to overlay register pane
 function showRegisterPane() {
     $('#register-overlay').fadeIn(300);    
 }
