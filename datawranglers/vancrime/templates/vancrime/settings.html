@@ -1,6 +1,9 @@
 {% if user.is_authenticated %}
 <div class="settings-form">
   <!-- TODO: duplicate password checker function for this form-->
+  <!-- TODO: identical username checker function for this form-->
+  <!-- TODO: non-empty username checker function for this form-->
+  <!-- TODO: email validater -->
   <div class="settings-title">-- <b>{{user}}'s</b> User Settings --</div>
   <form action="{% url 'changeacct' %}" method="post">
     {% csrf_token %}
