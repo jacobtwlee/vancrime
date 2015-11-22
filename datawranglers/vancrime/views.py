@@ -48,7 +48,6 @@ def changeacct_view(request):
             auth_user = authenticate(username=username, password=newpassword)
             login(request,auth_user)
         return HttpResponseRedirect('/?msg=change')
-
     
 def register_view(request):
     username = request.POST['username']
