@@ -246,3 +246,28 @@ function checkPassword() {
     }
 
 }
+
+function validateCForm() {
+    // passwords match
+     var password = $('.register-form input[name=password]').val(),
+        retypedPassword = $('.register-form input[name=password2]').val();
+        
+    if (password === retypedPassword) {
+        return true;
+    } else {
+        statusManager.warning("Passwords do not match", 3000);
+        return false;
+    }
+    // login is not empty
+    // email valid
+    if ( !isValidEmail( email ) ){
+	statusManager.warning("Passwords do not match", 3000);
+	return false;
+    }
+	
+    // http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
+    
+    
+}
+
+    
