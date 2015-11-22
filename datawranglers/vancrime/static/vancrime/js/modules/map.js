@@ -27,7 +27,7 @@ var mapManager  = {
         this.map = new google.maps.Map(document.getElementById('map'), this.defaultMapOptions);
         this.infoWindow = new google.maps.InfoWindow({content: ''});
         this.heatmap = new google.maps.visualization.HeatmapLayer({ data: this.positions, radius: 30});
-        this.neighbourhoods = new google.maps.KmlLayer({url: "http://data.vancouver.ca/download/kml/cov_localareas.kml"});
+        this.neighbourhoods = new google.maps.KmlLayer({url: "http://data.vancouver.ca/download/kml/cov_localareas.kml", preserveViewport: true});
      },
     
     // Add a marker to the map
