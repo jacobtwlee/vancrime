@@ -13,6 +13,36 @@ import re
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
+def changeacct_view(request):
+    username = request.user.username
+    newusername = request.POST['newusername']
+    password = request.POST['password']
+    newpassword = request.POST['newpassword1']
+    newemail = request.POST['newemail']
+
+    auth_user = authenticate(username=username, password=password)
+    if auth_user == None:
+        # TODO: add appropriate case to error message handler
+        return HttpResponseRedirect('/?error=badpass')
+    else:
+        user = User.objects.get(username = username)
+        if newusername != None:
+            user.username = newusername
+            # TODO go through list of favorites and update user name
+        elif newpassword != None:
+            user.password = newpassword
+        elif newemail != None:
+            # TODO: authenticate email address
+            user.email = newemail
+        else:
+            #TODO add nochange case to message handler
+            # we need to relogin or the user session is lost
+            login(request,auth_user)
+            return HttpResponseRedirect('/?msg=nochange')
+        user.save()
+        return HttpResponseRedirect('/?msg=changed')
+
+    
 def register_view(request):
     username = request.POST['username']
     password = request.POST['password']

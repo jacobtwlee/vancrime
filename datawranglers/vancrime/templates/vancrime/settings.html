@@ -1,15 +1,16 @@
 {% if user.is_authenticated %}
 <div class="settings-form">
+  <!-- TODO: duplicate password checker function for this form-->
   <div class="settings-title">-- <b>{{user}}'s</b> User Settings --</div>
-  <form action="{% url 'login' %}" method="post">
+  <form action="{% url 'changeacct' %}" method="post">
     {% csrf_token %}
     <div class="settings-subtitle">Enter current password:</div>
     <div class="form-field"><input type="password" name="password" placeholder="Current Password" required ></div>
     <div class="settings-subtitle">Fill in any fields to change:</div>
-    <div class="form-field"><input type="text" name="username" placeholder="New Username" ></div>
-    <div class="form-field"><input type="text" name="email" placeholder="New Email Address" ></div>
-    <div class="form-field"><input type="password" name="password" placeholder="New Password" ></div>
-    <div class="form-field"><input type="password" name="password" placeholder="Retype New Password" ></div>
+    <div class="form-field"><input type="text" name="newusername" placeholder="New Username" ></div>
+    <div class="form-field"><input type="text" name="newemail" placeholder="New Email Address" ></div>
+    <div class="form-field"><input type="password" name="newpassword1" placeholder="New Password" ></div>
+    <div class="form-field"><input type="password" name="newpassword2" placeholder="Retype New Password" ></div>
     <button class="menu-button" type="submit">Make it so</button> 
   </form>
 </div>
