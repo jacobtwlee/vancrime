@@ -33,7 +33,7 @@ def login_view(request):
     user = authenticate(username=username, password=password)
 
     if user == None:
-        return HttpResponseRedirect('/?error=badlog')
+        return HttpResponseRedirect('/?error=badlogin')
     
     if user.is_active:
         login(request,user)

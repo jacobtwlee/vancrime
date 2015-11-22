@@ -220,7 +220,7 @@ function expandMsg( msg ) {
     } else if (msg == 'regpass') {
 	return 'Thanks for registering!';
     } else if (msg == 'badlogin') {
-	return 'Unrecognized username or login. Please try again.';
+	return 'Incorrect username or password. Please try again.';
     } else if (msg == 'welcome') {
 	return 'Welcome back!';
     } 	
