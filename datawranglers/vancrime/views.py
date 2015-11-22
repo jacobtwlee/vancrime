@@ -23,7 +23,7 @@ def changeacct_view(request):
     # return if name already in db
     if username != newusername:
         if User.objects.filter(username = newusername).exists():
-            return HttpResponseRedirect('/?error=nameinuse')
+            return HttpResponseRedirect('/?error=baduser')
 
     # authenticating the user
     auth_user = authenticate(username=username, password=password)

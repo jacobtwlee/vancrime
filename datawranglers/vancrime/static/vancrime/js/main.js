@@ -228,16 +228,23 @@ function handleErrorMessages() {
 }
 
 function expandMsg( msg ) {
-    if (msg == 'baduser') {
+    // TODO: refactor to associative array
+    if (msg == 'welcome') {
+	return 'Welcome back!';
+    } else if (msg == 'baduser') {
 	return 'User name already in use. Select another one and try again.';
     } else if (msg == 'regpass') {
 	return 'Thanks for registering!';
     } else if (msg == 'badlogin') {
 	return 'Incorrect username or password. Please try again.';
-    } else if (msg == 'welcome') {
-	return 'Welcome back!';
-    } 	
-    return "An unexpected error occurred. Please try again.";
+    } else if (msg == 'change') {
+	return 'Account successfully changed!'
+    } else if (msg == 'nochange') {
+ 	return 'No changes were made the account';
+    } else if (msg == 'badpass') {
+	return 'Account is no longer valid, please contact the website administrator for assistance';
+    }
+    // In case of unrecognized msg, don't display anything to the user
 }
 
 function showSettingsPane() {
@@ -260,7 +267,7 @@ function validateRegister() {
     var email = $('.register-form input[name=email]').val();
 
     if ( isValidEmail( email ) === null ){
-	statusManager.warning("Please enter a valid email", 3000);
+	statusManager.warning("Please enter a valid email address!", 3000);
 	return false;
     }
 	
@@ -273,19 +280,19 @@ function validateRegister() {
 }
 
 function validateChangeForm() {
-    // passwords match
-     var password = $('.settings-form input[name=newpassword1]').val(),
-	 retypedPassword = $('.settings-form input[name=newpassword2]').val();
-
-    var email = $('.settings-form input[name=newemail]').val();
     // email valid
+    var email = $('.settings-form input[name=newemail]').val();
     if ( !( email === "" ) ){
 	if ( isValidEmail( email ) === null ){
-	    statusManager.warning("Please enter a valid email address", 3000);
+	    statusManager.warning("Please enter a valid email address!", 3000);
 	    return false;
 	}
     }
 
+    // passwords match
+     var password = $('.settings-form input[name=newpassword1]').val(),
+	 retypedPassword = $('.settings-form input[name=newpassword2]').val();
+     
     if ( typeof(password) != 'undefined' || typeof(retypePassword) != 'undefined' ){
 	if (password === retypedPassword) {
             return true;
