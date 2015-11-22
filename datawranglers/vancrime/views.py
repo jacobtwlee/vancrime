@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import Http404, HttpResponseRedirect, JsonResponse
+from django.http import Http404, HttpResponseRedirect
 from django.contrib.auth import logout
 from .models import Crime, Favorite
 # from .forms import CrimeForm
@@ -12,10 +12,6 @@ import re
 # for authentication
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
-from django.core.context_processors import csrf
-
-# Create your views here.
 
 def register_view(request):
     username = request.POST['username']
