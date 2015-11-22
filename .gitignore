@@ -8,7 +8,7 @@
 
 # ignore telemachus virtualenv files
 py3virtual/
-
+VENV/
 # ignore the database
 datawranglers/db.sqlite3
 
