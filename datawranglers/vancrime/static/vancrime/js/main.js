@@ -219,7 +219,7 @@ function expandMsg( msg ) {
     } else if (msg == 'regpass') {
 	return 'Thanks for registering!';
     } else if (msg == 'badlogin') {
-	return 'Unrecognized username or login. Please try again.';
+	return 'Incorrect username or password. Please try again.';
     } else if (msg == 'welcome') {
 	return 'Welcome back!';
     } 	
@@ -232,4 +232,17 @@ function showSettingsPane() {
 
 function hideSettingsPane() {
     $('#settings-overlay').fadeOut(700);
+}
+
+function checkPassword() {
+    var password = $('.register-form input[name=password]').val(),
+        retypedPassword = $('.register-form input[name=password2]').val();
+        
+    if (password === retypedPassword) {
+        return true;
+    } else {
+        statusManager.warning("Passwords do not match", 3000);
+        return false;
+    }
+
 }

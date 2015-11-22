@@ -75,6 +75,12 @@ html, body {
 }
 
 .login-register-container {
+    height: auto;
+    max-height: 0;
+    transition: max-height 1s ease;
+}
+
+.login-register-container {
     overflow-y: hidden;
 }
 
@@ -83,11 +89,15 @@ html, body {
 }
 
 .login-register-container.open {
-    height:400px;
+    max-height:500px;
 }
 
 .toggle-favs {
     background-image: url('/static/vancrime/images/fav-icon.png');    
+}
+
+.toggle-login {
+    background-image: url('/static/vancrime/images/user-icon.png');
 }
 
 .toggle-favs, .toggle-login {
