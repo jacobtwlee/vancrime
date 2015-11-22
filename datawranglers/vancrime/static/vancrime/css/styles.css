@@ -90,6 +90,10 @@ html, body {
     background-image: url('/static/vancrime/images/fav-icon.png');    
 }
 
+.toggle-login {
+    background-image: url('/static/vancrime/images/user-icon.png');
+}
+
 .toggle-favs, .toggle-login {
     background-repeat: no-repeat;
     background-position: center;
