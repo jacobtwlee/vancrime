@@ -75,6 +75,12 @@ html, body {
 }
 
 .login-register-container {
+    height: auto;
+    max-height: 0;
+    transition: max-height 1s ease;
+}
+
+.login-register-container {
     overflow-y: hidden;
 }
 
@@ -83,7 +89,7 @@ html, body {
 }
 
 .login-register-container.open {
-    height:400px;
+    max-height:500px;
 }
 
 .toggle-favs {
