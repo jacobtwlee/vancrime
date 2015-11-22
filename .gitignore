@@ -1,3 +1,11 @@
+# ignore emacs temp files suffixes
+*~
+*#
+.#*
+
+# ignore OSX files
+.DS_Store
+
 # ignore telemachus virtualenv files
 py3virtual/
 

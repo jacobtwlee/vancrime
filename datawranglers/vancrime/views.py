@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import Http404, HttpResponseRedirect
 from django.contrib.auth import logout
-from .models import Crime
+from .models import Crime, Favorite
 # from .forms import CrimeForm
 from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components
@@ -9,8 +9,38 @@ from bokeh.resources import CDN
 from math import pi 
 import calendar
 import re
+# for authentication
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 
-# Create your views here.
+def register_view(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    email = None
+    # validate that the username is free
+    if User.objects.filter(username = username).exists():
+        return HttpResponseRedirect('/?error=baduser')
+    else:
+        user = User.objects.create_user(username,email,password)
+        user.save()
+        auth_user = authenticate(username=username, password=password)
+        login(request,auth_user)
+        return HttpResponseRedirect('/?msg=regpass')
+
+def login_view(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+
+    if user == None:
+        return HttpResponseRedirect('/?error=badlog')
+    
+    if user.is_active:
+        login(request,user)
+        return HttpResponseRedirect('/?msg=welcome')
+    else:
+        return HttpResponseRedirect('/?error=login')
+        
 
 def index(request):
     crimes = Crime.objects.all()

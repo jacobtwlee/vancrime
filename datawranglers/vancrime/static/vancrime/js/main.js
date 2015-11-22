@@ -1,6 +1,9 @@
 $(document).ready(function () {
     mapManager.init();
     favoritesManager.init();
+    loginManager.init();
+
+    handleErrorMessages();
     
     $('#filter-crime-type').val("all")
     $('#filter-crime-year').val(default_year)
@@ -20,6 +23,9 @@ $(document).ready(function () {
     $('#filter-button').click(updateResults);
     $('#graph-button').click(showSummaryGraph);
     $('.graph-bg').click(hideSummaryGraph);
+    /* Kept in case we refactor to use an overlay register pane
+    $('.register-bg').click(hideRegisterPane);
+    $('#register-button').click(showRegisterPane);*/
     
     $('#toggle-markers').click(function () {
         var $this = $(this);
@@ -181,3 +187,51 @@ function updateSummaryTable () {
         }
     });
 }
+
+function handleErrorMessages() {
+    /* Credit for urlparams parser function:
+       http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+       */
+    var urlParams;
+    (window.onpopstate = function () {
+	var match,
+	    pl     = /\+/g,  // Regex for replacing addition symbol with a space
+	    search = /([^&=]+)=?([^&]*)/g,
+	    decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+	    query  = window.location.search.substring(1);
+
+	urlParams = {};
+	while (match = search.exec(query))
+	    urlParams[decode(match[1])] = decode(match[2]);
+    })();
+
+    var code = "";
+    if ( urlParams["error"] != null ) {
+	statusManager.error( expandMsg( code ) );
+    } else if ( urlParams["msg"] != null ) {
+	statusManager.info( expandMsg( urlParams["msg"] ) );
+    }
+
+}
+
+function expandMsg( msg ) {
+    if (msg == 'baduser') {
+	return 'User name already in use';
+    } else if (msg == 'regpass') {
+	return 'Thanks for registering!';
+    } else if (msg == 'badlogin') {
+	return 'Unrecognized username or login. Please try again.';
+    } else if (msg == 'welcome') {
+	return 'Welcome back!';
+    }
+    return "An unexpected error occurred. Please try again.";
+}
+
+/* Kept in case we refactor to overlay register pane
+function showRegisterPane() {
+    $('#register-overlay').fadeIn(300);    
+}
+
+function hideRegisterPane() {
+    $('#register-overlay').fadeOut(300);
+} */
