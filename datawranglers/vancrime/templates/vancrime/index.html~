@@ -59,6 +59,7 @@
     <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-0.10.0.min.js"></script>
     <script type="text/javascript" src="{% static 'vancrime/js/third_party/jquery-2.1.4.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'vancrime/js/third_party/underscore-1.8.3.min.js' %}"></script>
+    <!--script type="text/javascript" src="{% static 'vancrime/js/third_party/geoxml3.js' %}"></script--!>
 
     <!-- main app -->
     <script type="text/javascript" src="{% static 'vancrime/js/helpers.js' %}"></script>

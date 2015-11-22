@@ -1,6 +1,5 @@
 <div id="toggle-markers" class="menu-toggle-button">Hide Markers</div>
 <div id="toggle-heatmap" class="menu-toggle-button off">Show Heatmap</div>
-<div id="toggle-neighbourhoods" class="menu-toggle-button off">Show Neighbourhoods</div>
 
 <hr>
 
