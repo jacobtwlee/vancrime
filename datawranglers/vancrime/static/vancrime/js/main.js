@@ -54,6 +54,20 @@ $(document).ready(function () {
             $this.text("Show Heatmap");
         }
      });
+
+     $('#toggle-neighbourhoods').click(function () {
+        var $this = $(this);
+        
+        if ($this.hasClass("off")) {
+            mapManager.showNeighbourhoods();
+            $this.removeClass("off");
+            $this.text("Hide Neighbourhoods");
+        } else {
+            mapManager.hideNeighbourhoods();
+            $this.addClass("off");
+            $this.text("Show Neighbourhoods");
+        }
+     });
 });
 
 var $loadingOverlay = $('#loading-overlay');
