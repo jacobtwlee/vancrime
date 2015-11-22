@@ -235,3 +235,16 @@ function showRegisterPane() {
 function hideRegisterPane() {
     $('#register-overlay').fadeOut(300);
 } */
+
+function checkPassword() {
+    var password = $('.register-form input[name=password]').val(),
+        retypedPassword = $('.register-form input[name=password2]').val();
+        
+    if (password === retypedPassword) {
+        return true;
+    } else {
+        statusManager.warning("Passwords do not match", 3000);
+        return false;
+    }
+
+}

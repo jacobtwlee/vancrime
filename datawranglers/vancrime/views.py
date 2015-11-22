@@ -16,7 +16,7 @@ from django.contrib.auth import authenticate, login, logout
 def register_view(request):
     username = request.POST['username']
     password = request.POST['password']
-    email = None
+    email = request.POST['email']
     # validate that the username is free
     if User.objects.filter(username = username).exists():
         return HttpResponseRedirect('/?error=baduser')

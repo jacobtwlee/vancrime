@@ -29,10 +29,12 @@
     </div>
     <div class="register-form">
       <div class="register-title">-- Register --</div>
-       <form action="{% url 'register' %}" method="post">
+       <form action="{% url 'register' %}" method="post" onsubmit="return checkPassword()">
             {% csrf_token %}
-            <div class="form-field"><input type="text" name="username" placeholder="Enter a username here" required></div>
-            <div class="form-field"><input type="password" name="password" placeholder="Enter a password here" required></div>
+            <div class="form-field"><input type="text" name="username" placeholder="Username" required></div>
+            <div class="form-field"><input type="text" name="email" placeholder="Email" required></div>
+            <div class="form-field"><input type="password" name="password" placeholder="Password" required></div>
+            <div class="form-field"><input type="password" name="password2" placeholder="Retype Password" onsubmit="return checkPassword()" required></div>
             <button class="menu-button" type="submit">Register</button> 
         </form>
     </div>
