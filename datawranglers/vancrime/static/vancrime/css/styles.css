@@ -455,11 +455,11 @@ hr {
     padding-bottom: 5px;
 }
 
-.login-form, .register-form {
+.login-form, .register-form, .settings-form {
     padding: 10px;
 }
 
-.login-form input, .register-form input {
+.login-form input, .register-form input, .settings-form input {
     font-size: 14px;
     margin-bottom: 5px;
     width: 100%;
@@ -471,14 +471,13 @@ hr {
     box-sizing: border-box;
 }
 
-.login-form button, .register-form button {
+.login-form button, .register-form button, .settings-form button {
     margin:0;
     font-size: 14px;
     border: none;
 }
 
-/* Kept in case we refactor to register window overlay
-#register-overlay {
+#settings-overlay {
     display: none;
     position: absolute;
     z-index: 15;
@@ -487,7 +486,7 @@ hr {
     
 }
 
-.register-content {
+.settings-content {
     position: absolute;
     z-index: 16;
     margin: auto;
@@ -495,15 +494,30 @@ hr {
     left: 0;
     right: 0;
     bottom: 0;
-    width: 50%;
-    height: 50%;
-    background-color: white;
+    width: 350px;
+    height: 350px;;
+    
+    background-color: #f4f4f4;
     border-radius: 5px;
 }
 
-.register-bg {
+.settings-bg {
     width:100%;
     height: 100%;
     background-color: black;
-    opacity: 0.5;
-}*/
+    opacity: 0.25;
+}
+
+.settings-title {
+    color: black;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.settings-subtitle {
+    color: #aaa;
+    width: 100%;
+    text-align: left;
+    padding-bottom: 5px;
+}

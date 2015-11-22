@@ -23,9 +23,8 @@ $(document).ready(function () {
     $('#filter-button').click(updateResults);
     $('#graph-button').click(showSummaryGraph);
     $('.graph-bg').click(hideSummaryGraph);
-    /* Kept in case we refactor to use an overlay register pane
-    $('.register-bg').click(hideRegisterPane);
-    $('#register-button').click(showRegisterPane);*/
+    $('.settings-bg').click(hideSettingsPane);
+    $('#settings').click(showSettingsPane);
     
     $('#toggle-markers').click(function () {
         var $this = $(this);
@@ -227,11 +226,10 @@ function expandMsg( msg ) {
     return "An unexpected error occurred. Please try again.";
 }
 
-/* Kept in case we refactor to overlay register pane
-function showRegisterPane() {
-    $('#register-overlay').fadeIn(300);    
+function showSettingsPane() {
+    $('#settings-overlay').fadeIn(700);    
 }
 
-function hideRegisterPane() {
-    $('#register-overlay').fadeOut(300);
-} */
+function hideSettingsPane() {
+    $('#settings-overlay').fadeOut(700);
+}

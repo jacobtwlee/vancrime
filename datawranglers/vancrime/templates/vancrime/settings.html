@@ -1,0 +1,18 @@
+{% if user.is_authenticated %}
+<div class="settings-form">
+  <div class="settings-title">-- <b>{{user}}'s</b> User Settings --</div>
+  <form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <div class="settings-subtitle">Enter current password:</div>
+    <div class="form-field"><input type="password" name="password" placeholder="Current Password" required ></div>
+    <div class="settings-subtitle">Fill in any fields to change:</div>
+    <div class="form-field"><input type="text" name="username" placeholder="New Username" ></div>
+    <div class="form-field"><input type="text" name="email" placeholder="New Email Address" ></div>
+    <div class="form-field"><input type="password" name="password" placeholder="New Password" ></div>
+    <div class="form-field"><input type="password" name="password" placeholder="Retype New Password" ></div>
+    <button class="menu-button" type="submit">Make it so</button> 
+  </form>
+</div>
+{% else %}
+<div>This pane is pointless unless you're logged in...</div>
+{% endif %}

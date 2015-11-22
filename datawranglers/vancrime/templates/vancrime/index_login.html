@@ -2,7 +2,7 @@
     {% if user.is_authenticated %}
     Logged in as <b>{{user}}</b>
     <div class="user-buttons">
-        <div class="settings-button user-button" title="settings"></div>
+        <div id="settings" class="settings-button user-button" title="settings"></div>
         <a href="/logout"><div class="logout-button user-button" title="logout"></div></a>
     </div>
     {% else %}
