@@ -52,7 +52,7 @@ var mapManager  = {
         this.positions.push(new google.maps.LatLng(location.lat, location.lng));
     },
     
-    // Sets the map for all李俊晞 markers
+    // Sets the map for all markers
     setMapOnAll: function (map) {
         for (var i = 0; i < this.markers.length; i++) {
             this.markers[i].setMap(map);
