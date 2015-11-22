@@ -477,7 +477,7 @@ hr {
     border: none;
 }
 
-/* TODO: remove
+/* Kept in case we refactor to register window overlay
 #register-overlay {
     display: none;
     position: absolute;

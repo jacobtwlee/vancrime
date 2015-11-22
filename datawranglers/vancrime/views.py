@@ -42,7 +42,7 @@ def login_view(request):
         return HttpResponseRedirect('/?error=login')
         
 
-def index(request, error=None):
+def index(request):
     crimes = Crime.objects.all()
     
     latestYear = crimes.order_by("-year")[0].year

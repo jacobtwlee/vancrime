@@ -189,7 +189,7 @@ function updateSummaryTable () {
 }
 
 function handleErrorMessages() {
-    /* Credit for this one function goes to:
+    /* Credit for urlparams parser function:
        http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
        */
     var urlParams;
