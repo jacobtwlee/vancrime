@@ -261,22 +261,34 @@ function checkPassword() {
 
 }
 
-function validateCForm() {
+function isValidEmail( email ) {
+
+    var re = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+    return email.match( re );
+}
+
+function validateForm() {
     // passwords match
-     var password = $('.register-form input[name=password]').val(),
-        retypedPassword = $('.register-form input[name=password2]').val();
-        
-    if (password === retypedPassword) {
-        return true;
-    } else {
-        statusManager.warning("Passwords do not match", 3000);
-        return false;
-    }
+     var password = $('.settings-form input[name=newpassword]').val(),
+	 retypedPassword = $('.settings-form input[name=newpassword2]').val();
     // login is not empty
+
+    var email = $('.settings-form input[name=newemail]').val();
     // email valid
-    if ( !isValidEmail( email ) ){
-	statusManager.warning("Passwords do not match", 3000);
-	return false;
+    if ( !( email === "" ) ){
+	if ( isValidEmail( email ) === null ){
+	    statusManager.warning("Please enter a valid email address", 3000);
+	    return false;
+	}
+    }
+
+    if ( typeof(password) != 'undefined' ){
+	if (password === retypedPassword) {
+            return true;
+	} else {
+            statusManager.warning("Passwords do not match", 3000);
+            return false;
+	}
     }
 	
     // http://stackoverflow.com/questions/46155/validate-email-address-in-javascript

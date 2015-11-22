@@ -20,26 +20,28 @@ def changeacct_view(request):
     newpassword = request.POST['newpassword1']
     newemail = request.POST['newemail']
 
-    # catch duplicate names
-    if User.objects.filter(username = newusername).exists():
-        return HttpResponseRedirect('/?error=baduser')
+    # catch name already in use
+    if username != newusername:
+        if User.objects.filter(username = newusername).exists():
+            return HttpResponseRedirect('/?error=nameinuse')
 
+    # try authenticating the user    
     auth_user = authenticate(username=username, password=password)
     if auth_user == None:
         # TODO: add appropriate case to error message handler
         return HttpResponseRedirect('/?error=badpass')
     else:
         user = User.objects.get(username = username)
-        if newusername != None or "":
-            # TODO: ensure that new and old usernames aren't the same
+        if newusername: #(newusername != None) and not (newusername == ""):
             user.username = newusername
-        elif newpassword != None:
+        elif newpassword:
             user.password = newpassword
-        elif newemail != None:
-            # TODO: authenticate email address
+        elif newemail:
             user.email = newemail
+        else:
+            return HttpResponseRedirect('/?msg=nochange')
         user.save()
-        return HttpResponseRedirect('/?msg=changed'+user.username+"k2")
+        return HttpResponseRedirect('/?msg=changed'+" " +username+ "to " + newusername+ str(type(newusername)))
 
     
 def register_view(request):
