@@ -2,6 +2,7 @@ var mapManager  = {
     map: null,
     positions: null,
     heatmap: null,
+    neighbourhoods: null,
     heatmapIsVisible: false,
     markersAreVisible: true,
     markers: [],
@@ -26,7 +27,8 @@ var mapManager  = {
         this.map = new google.maps.Map(document.getElementById('map'), this.defaultMapOptions);
         this.infoWindow = new google.maps.InfoWindow({content: ''});
         this.heatmap = new google.maps.visualization.HeatmapLayer({ data: this.positions, radius: 30});
-    },
+        this.neighbourhoods = new google.maps.KmlLayer({url: "http://data.vancouver.ca/download/kml/cov_localareas.kml", preserveViewport: true});
+     },
     
     // Add a marker to the map
     addMarker: function (location, title, icon, content) {
@@ -85,6 +87,16 @@ var mapManager  = {
     hideHeatmap: function () {
         this.heatmap.setMap(null);
         this.heatmapIsVisible = false;
+    },
+
+    // Show neighbourhoods 
+    showNeighbourhoods: function () {
+      this.neighbourhoods.setMap(this.map);
+    },
+
+    // Hide neighbourhoods
+    hideNeighbourhoods: function () {
+      this.neighbourhoods.setMap(null);
     },
 
     // Clear the position array
