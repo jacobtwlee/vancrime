@@ -207,7 +207,7 @@ function handleErrorMessages() {
 
     var code = "";
     if ( urlParams["error"] != null ) {
-	statusManager.error( expandMsg( code ) );
+	statusManager.error( expandMsg( urlParams["error"] ) );
     } else if ( urlParams["msg"] != null ) {
 	statusManager.info( expandMsg( urlParams["msg"] ) );
     }
@@ -216,14 +216,14 @@ function handleErrorMessages() {
 
 function expandMsg( msg ) {
     if (msg == 'baduser') {
-	return 'User name already in use';
+	return 'User name already in use. Select another one and try again.';
     } else if (msg == 'regpass') {
 	return 'Thanks for registering!';
     } else if (msg == 'badlogin') {
 	return 'Unrecognized username or login. Please try again.';
     } else if (msg == 'welcome') {
 	return 'Welcome back!';
-    }
+    } 	
     return "An unexpected error occurred. Please try again.";
 }
 
