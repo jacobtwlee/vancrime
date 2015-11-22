@@ -256,6 +256,7 @@ function hideSettingsPane() {
 }
 
 function isValidEmail( email ) {
+    // Credit for regex to:
     // http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
     var re = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
     return email.match( re );
