@@ -248,30 +248,34 @@ function hideSettingsPane() {
     $('#settings-overlay').fadeOut(700);
 }
 
-function checkPassword() {
+function isValidEmail( email ) {
+    // http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
+    var re = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+    return email.match( re );
+}
+
+function validateRegister() {
     var password = $('.register-form input[name=password]').val(),
         retypedPassword = $('.register-form input[name=password2]').val();
-        
+    var email = $('.register-form input[name=email]').val();
+
+    if ( isValidEmail( email ) === null ){
+	statusManager.warning("Please enter a valid email", 3000);
+	return false;
+    }
+	
     if (password === retypedPassword) {
         return true;
     } else {
         statusManager.warning("Passwords do not match", 3000);
         return false;
     }
-
 }
 
-function isValidEmail( email ) {
-
-    var re = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-    return email.match( re );
-}
-
-function validateForm() {
+function validateChangeForm() {
     // passwords match
-     var password = $('.settings-form input[name=newpassword]').val(),
+     var password = $('.settings-form input[name=newpassword1]').val(),
 	 retypedPassword = $('.settings-form input[name=newpassword2]').val();
-    // login is not empty
 
     var email = $('.settings-form input[name=newemail]').val();
     // email valid
@@ -282,7 +286,7 @@ function validateForm() {
 	}
     }
 
-    if ( typeof(password) != 'undefined' ){
+    if ( typeof(password) != 'undefined' || typeof(retypePassword) != 'undefined' ){
 	if (password === retypedPassword) {
             return true;
 	} else {
@@ -290,10 +294,4 @@ function validateForm() {
             return false;
 	}
     }
-	
-    // http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
-    
-    
-}
-
-    
+}    

@@ -20,28 +20,34 @@ def changeacct_view(request):
     newpassword = request.POST['newpassword1']
     newemail = request.POST['newemail']
 
-    # catch name already in use
+    # return if name already in db
     if username != newusername:
         if User.objects.filter(username = newusername).exists():
             return HttpResponseRedirect('/?error=nameinuse')
 
-    # try authenticating the user    
+    # authenticating the user
     auth_user = authenticate(username=username, password=password)
     if auth_user == None:
         # TODO: add appropriate case to error message handler
         return HttpResponseRedirect('/?error=badpass')
     else:
         user = User.objects.get(username = username)
-        if newusername: #(newusername != None) and not (newusername == ""):
+        if newusername:
             user.username = newusername
         elif newpassword:
-            user.password = newpassword
+            # frontend validates the new password was entered the same twice
+            user.set_password(newpassword)
         elif newemail:
             user.email = newemail
         else:
             return HttpResponseRedirect('/?msg=nochange')
         user.save()
-        return HttpResponseRedirect('/?msg=changed'+" " +username+ "to " + newusername+ str(type(newusername)))
+        # on password change, Django will drop any existing user sessions
+        # so log user back in before redirecting
+        if newpassword:
+            auth_user = authenticate(username=username, password=newpassword)
+            login(request,auth_user)
+        return HttpResponseRedirect('/?msg=change')
 
     
 def register_view(request):
