@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import include, url
 
 from . import views
 
@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'changeacct/$', views.changeacct_view, name = 'changeacct'),
     url(r'login/$', views.login_view, name = 'login'),
     url(r'logout/$', views.logout_view, name = 'logout'),
+    url('', include('social.apps.django_app.urls', namespace='social')),
 ]
