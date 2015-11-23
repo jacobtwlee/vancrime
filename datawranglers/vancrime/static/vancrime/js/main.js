@@ -224,7 +224,9 @@ function handleErrorMessages() {
     } else if ( urlParams["msg"] != null ) {
 	statusManager.info( expandMsg( urlParams["msg"] ) );
     }
-
+    
+    // remove error/message param from browser so user doesn't see error/message on refresh
+    window.history.pushState('', 'VanCrime', '/');
 }
 
 function expandMsg( msg ) {
