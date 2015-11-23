@@ -8,7 +8,7 @@ var mapManager  = {
     markers: [],
     infoWindow: null,
     defaultMapOptions: {
-        center: {lat: 49.255930, lng: -123.142319},
+        center: {lat: 49.2524573228171, lng: -123.11897305273436},
         zoom: 13,
         streetViewControl: false,
         mapTypeControl: false
@@ -28,6 +28,10 @@ var mapManager  = {
         this.infoWindow = new google.maps.InfoWindow({content: ''});
         this.heatmap = new google.maps.visualization.HeatmapLayer({ data: this.positions, radius: 30});
         this.neighbourhoods = new google.maps.KmlLayer({url: "http://data.vancouver.ca/download/kml/cov_localareas.kml", preserveViewport: true});
+        
+        if (features.isEnabled("MARKER_CLUSTERS")) {
+            this.markerCluster = new MarkerClusterer(this.map, [], {gridSize: 50, maxZoom: 15, zoomOnClick: true});
+        }
      },
     
     // Add a marker to the map
@@ -40,9 +44,11 @@ var mapManager  = {
             icon: icon
         });
         
-        var map = this.markersAreVisible ? this.map : null;
+        if (!features.isEnabled("MARKER_CLUSTERS")) {
+            var map = this.markersAreVisible ? this.map : null;        
+            marker.setMap(map);
+        }
         
-        marker.setMap(map);
         marker.addListener('click', function() {
             self.infoWindow.setContent(content);
             self.infoWindow.open(this.map, marker);
@@ -50,6 +56,10 @@ var mapManager  = {
         
         this.markers.push(marker);
         this.positions.push(new google.maps.LatLng(location.lat, location.lng));
+        
+        if (features.isEnabled("MARKER_CLUSTERS")) {
+            if (this.markersAreVisible) this.markerCluster.addMarker(marker);
+        }
     },
     
     // Sets the map for all markers
@@ -61,19 +71,32 @@ var mapManager  = {
    
     // Hide all markers
     hideMarkers: function () {
-        this.setMapOnAll(null);
+        if (features.isEnabled("MARKER_CLUSTERS")) {
+            this.markerCluster.clearMarkers();
+        } else {
+            this.setMapOnAll(null);
+        }
         this.markersAreVisible = false;
     },
 
     // Shows all markers
     showMarkers: function () {
-        this.setMapOnAll(this.map);
+        if (features.isEnabled("MARKER_CLUSTERS")) {
+            this.markerCluster.addMarkers(this.markers);
+        } else {
+            this.setMapOnAll(this.map);
+        }
         this.markersAreVisible = true;
     },
     
     // Delete all markers
     deleteMarkers: function () {
-        this.setMapOnAll(null);
+        if (features.isEnabled("MARKER_CLUSTERS")) {
+            this.markerCluster.clearMarkers();
+        } else {
+            this.setMapOnAll(null);
+        }
+        
         this.markers = [];
     },
    
