@@ -31,15 +31,23 @@ def changeacct_view(request):
         # TODO: add appropriate case to error message handler
         return HttpResponseRedirect('/?error=badpass')
     else:
+        accountChanged = False
         user = User.objects.get(username = username)
         if newusername:
+            newusername = newusername.strip()
+            username = newusername
             user.username = newusername
-        elif newpassword:
+            accountChanged = True
+        if newpassword:
             # frontend validates the new password was entered the same twice
+            newpassword = newpassword.strip()
             user.set_password(newpassword)
-        elif newemail:
+            accountChanged = True
+        if newemail:
+            newemail = newemail.strip()
             user.email = newemail
-        else:
+            accountChanged = True
+        if not accountChanged:
             return HttpResponseRedirect('/?msg=nochange')
         user.save()
         # on password change, Django will drop any existing user sessions
