@@ -16,7 +16,7 @@
             <div class="menu-filter">
                 <div class="sub-title">Filter</div>
                 <div class="menu-content">
-                    {% include "vancrime/index_filter_menu.html" %}  
+                    {% include "vancrime/index_filter_menu.html" %}       
                 </div>
             </div>
             <div class="menu-visualize">
@@ -37,8 +37,10 @@
         <div class="graph-content"></div>
         <div class="graph-bg"></div>
     </div>
-<!--    <div id="register-overlay">
-      <div class="register-content"></div>-->
+    <div id="settings-overlay">
+      <div class="settings-content">{% include "vancrime/settings.html" %}</div>
+      <div class="settings-bg"></div>
+      </div>
     <div id=loading-overlay><div class="loading-icon"></div></div>
     <div id="map"></div>
     <div id="login">
