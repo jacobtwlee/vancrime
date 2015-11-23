@@ -104,7 +104,7 @@ function renderFavButton (location, title) {
 
 function renderCrimeTooltip (crime) {    
     var month = intMonthToString(crime.month);
-    var address = titleCase(crime.location.address).replace("xx", "00 Block");
+    var address = titleCase(crime.location.address).replace("xx Block", "00 Block").replace("xx", "00 Block");
     
     return templates.crimeTooltip({
         crime_type: crime.crime_type,

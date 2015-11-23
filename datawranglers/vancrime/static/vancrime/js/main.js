@@ -104,7 +104,10 @@ function addMapMarkers (response) {
         var icon = getCrimeIconURL(crime.crime_type);
         var tooltipContent = renderCrimeTooltip(crime);
         
-        mapManager.addMarker(location, title, icon, tooltipContent);
+        // add map marker only if it is in vancouver
+        if (isInVancouver(location)) {
+            mapManager.addMarker(location, title, icon, tooltipContent);
+        }
     });
     
     hideLoadingOverlay();
@@ -305,3 +308,7 @@ function validateChangeForm() {
 	}
     }
 }    
+
+function isInVancouver(location) {
+    return location.lat > 49.17 && location.lat < 49.34 && location.lng > -123.25 && location.lng < -123;
+}
