@@ -12,6 +12,7 @@ import re
 # for authentication
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from social.apps.django_app.default.models import UserSocialAuth
 
 def changeacct_view(request):
     username = request.user.username
@@ -116,12 +117,18 @@ def index(request):
             latitude = "null"
             longitude = "null"
     
+    try:
+        isSocialUser = UserSocialAuth.objects.filter(user=request.user).exists()
+    except:
+        isSocialUser = False
+    
     context = {
         "default_year": year,
         "default_month": month,
         "default_latitude": latitude,
         "default_longitude": longitude,
-        "user": request.user
+        "user": request.user,
+        "isSocialUser": isSocialUser
     }
     
     return render(request, 'vancrime/index.html', context)

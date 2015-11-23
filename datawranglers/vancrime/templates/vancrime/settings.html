@@ -1,4 +1,3 @@
-{% if user.is_authenticated %}
 <div class="settings-form">
   <div class="settings-title">Account Settings for <b>{{user}}</b></div>
   <form action="{% url 'changeacct' %}" method="post" onsubmit="return validateChangeForm()">
@@ -15,6 +14,4 @@
     <button class="menu-button" type="submit">Update Account</button>
   </form>
   <button class="settings-cancel-button menu-toggle-button off">Cancel</button>
-
 </div>
-{% endif %}
