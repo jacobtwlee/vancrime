@@ -428,7 +428,7 @@ select.filter-menu:hover {
 }
 
 hr {
-    border: 2px solid #e6e6e6;
+    border: 1px solid #e6e6e6;
 }
 
 @media screen and (min-width: 0px) {
@@ -506,9 +506,15 @@ hr {
     bottom: 0;
     width: 350px;
     height: 350px;;
-    
+}
+
+.settings-form {
     background-color: #f4f4f4;
     border-radius: 5px;
+}
+
+.settings-content button {
+    margin-top: 5px;
 }
 
 .settings-bg {
@@ -530,4 +536,12 @@ hr {
     width: 100%;
     text-align: left;
     padding-bottom: 5px;
+}
+
+button:focus, input:focus, select:focus {
+    outline: 0;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #F6F9FD;
 }

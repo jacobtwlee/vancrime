@@ -23,7 +23,7 @@ $(document).ready(function () {
     $('#filter-button').click(updateResults);
     $('#graph-button').click(showSummaryGraph);
     $('.graph-bg').click(hideSummaryGraph);
-    $('.settings-bg').click(hideSettingsPane);
+    $('.settings-cancel-button').click(hideSettingsPane);
     $('#settings').click(showSettingsPane);
     
     $('#toggle-markers').click(function () {
@@ -244,17 +244,17 @@ function expandMsg( msg ) {
     } else if (msg == 'nochange') {
  	return 'No changes were made the account';
     } else if (msg == 'badpass') {
-	return 'Account is no longer valid, please contact the website administrator for assistance';
+	return 'Incorrect password. Please try again.';
     }
     // In case of unrecognized msg, don't display anything to the user
 }
 
 function showSettingsPane() {
-    $('#settings-overlay').fadeIn(700);    
+    $('#settings-overlay').fadeIn(300);    
 }
 
 function hideSettingsPane() {
-    $('#settings-overlay').fadeOut(700);
+    $('#settings-overlay').fadeOut(300);
 }
 
 function isValidEmail( email ) {

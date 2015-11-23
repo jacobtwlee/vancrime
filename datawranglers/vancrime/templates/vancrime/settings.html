@@ -4,14 +4,17 @@
   <form action="{% url 'changeacct' %}" method="post" onsubmit="return validateChangeForm()">
     {% csrf_token %}
     <div class="settings-subtitle">Enter current password:</div>
-    <div class="form-field"><input type="password" name="password" required ></div>
+    <div class="form-field"><input type="password" name="password" placeholder="Old Password" required ></div>
+    <hr>
     <div class="settings-subtitle">Fill in any of the fields to change them:</div>
     <div class="form-field"><input type="text" name="newusername" placeholder="New Username" ></div>
     <div class="form-field">
       <input type="text" name="newemail" placeholder="New Email"></div>
     <div class="form-field"><input type="password" name="newpassword1" placeholder="New Password" ></div>
     <div class="form-field"><input type="password" name="newpassword2" placeholder="Retype New Password"  ></div>
-    <button class="menu-button" type="submit">Submit Changes</button>
+    <button class="menu-button" type="submit">Update Account</button>
   </form>
+  <button class="settings-cancel-button menu-toggle-button off">Cancel</button>
+
 </div>
 {% endif %}
