@@ -33,3 +33,7 @@ Python (3.2 or higher): https://www.python.org/
 Production dependencies: see `requirements.txt`
 
 Development dependencies: see `requirements-dev.txt`
+
+### Tests
+
+    python manage.py test
