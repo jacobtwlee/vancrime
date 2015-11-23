@@ -290,6 +290,7 @@ html, body {
 
 .menu-button-twitter {
     background-color: #55acee;
+    margin-top: 5px !important;
 }
 
 .menu-button-twitter:hover {
