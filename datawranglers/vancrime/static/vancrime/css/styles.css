@@ -288,6 +288,14 @@ html, body {
     background-color: #C3C3C3;
 }
 
+.menu-button-twitter {
+    background-color: #55acee;
+}
+
+.menu-button-twitter:hover {
+    background-color: #69B7F3;
+}
+
 .marker-tooltip p {
     line-height: 10px;
 }
