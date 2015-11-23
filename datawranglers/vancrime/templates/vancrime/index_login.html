@@ -24,7 +24,14 @@
             {% csrf_token %}
             <div class="form-field"><input type="text" name="username" placeholder="Username" required></div>
             <div class="form-field"><input type="password" name="password" placeholder="Password" required></div>
-            <button class="menu-button" type="submit">Login</button> 
+            <button class="menu-button" type="submit">Login</button>
+        </form>
+        <form action="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">
+            {% csrf_token %}
+            <button class="menu-button menu-button-twitter" type="submit">
+                <img src='/static/vancrime/images/tweet-icon.png'/>
+                Login with Twitter
+            </button>
         </form>
     </div>
     <div class="register-form">
@@ -35,7 +42,7 @@
             <div class="form-field"><input type="text" name="email" placeholder="Email" required></div>
             <div class="form-field"><input type="password" name="password" placeholder="Password" required></div>
             <div class="form-field"><input type="password" name="password2" placeholder="Retype Password" required></div>
-            <button class="menu-button" type="submit">Register</button> 
+            <button class="menu-button" type="submit">Register</button>
         </form>
     </div>
 </div>

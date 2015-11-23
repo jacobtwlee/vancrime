@@ -74,3 +74,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# auth keys
+datawranglers/config.py
