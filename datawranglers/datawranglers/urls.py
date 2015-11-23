@@ -33,4 +33,5 @@ urlpatterns = [
     url(r'^api/', include(router.urls)), # Wire up our API using automatic URL routing.
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')), # Additionally, we include login URLs for the browsable API.
     url(r'^', include('vancrime.urls')),
+    url('', include('social.apps.django_app.urls', namespace='social')),
 ]
