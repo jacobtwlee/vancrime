@@ -1,6 +1,6 @@
 {% if user.is_authenticated %}
 <div class="settings-form">
-  <div class="settings-title">-- <b>{{user}}'s</b> User Settings --</div>
+  <div class="settings-title">Account Settings for <b>{{user}}</b></div>
   <form action="{% url 'changeacct' %}" method="post" onsubmit="return validateChangeForm()">
     {% csrf_token %}
     <div class="settings-subtitle">Enter current password:</div>
